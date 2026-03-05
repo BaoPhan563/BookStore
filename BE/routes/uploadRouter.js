@@ -13,10 +13,12 @@ uploadRouter.use(bodyParser.json());
 // Initialize Firebase
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "book-store-project-426305.appspot.com",
+  storageBucket: "bookstore-740d1.appspot.com",
 });
 
 const bucket = admin.storage().bucket();
+
+console.log("Bucket name:", bucket.name); // Kiểm tra tên bucket
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 

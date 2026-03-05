@@ -197,14 +197,14 @@ router.post("/forgotPassword", cors.corsWithOptions, (req, res, next) => {
           let transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-              user: "datnptce171966@fpt.edu.vn",
-              pass: "gtjo rvob jahe eopx",
+              user: "baoptq5603@gmail.com",
+              pass: "rcvd xtrd yscj ntke",
             },
           });
 
           let mailOptions = {
             to: user.email,
-            from: "mailcuadatnguyen@gmail.com",
+            from: "baoptq5603@gmail.com",
             subject: "OTP for reset password",
             html: `
             <p>Dear User,</p>
