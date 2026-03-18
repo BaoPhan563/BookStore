@@ -62,6 +62,10 @@ export default function CartItem({ item, updateCart, removeFromCart }) {
         return Number(number.toFixed(2));
     };
 
+    const formatPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+
     return (
         <div className="container grid grid-cols-12 gap-4 mt-6 p-4 h-30 shadow-2xl rounded-lg">
             <div className="bookItem col-span-5 flex items-center justify-center">
@@ -76,7 +80,7 @@ export default function CartItem({ item, updateCart, removeFromCart }) {
                     {item.book.title}
                 </div>
             </div>
-            <div className="price col-span-2 flex items-center justify-center">${fixNumber(item.price)}</div>
+            <div className="price col-span-2 flex items-center justify-center">{formatPrice(fixNumber(item.price))}₫</div>
             <div className="amount col-span-2 flex items-center justify-center">
                 <button onClick={() => updateQuantity('decrease')} className="mr-2 text-gray-500">
                     <FaMinus />
@@ -86,7 +90,7 @@ export default function CartItem({ item, updateCart, removeFromCart }) {
                     <FaPlus />
                 </button>
             </div>
-            <div className="totalPrice col-span-2 flex items-center justify-center">${fixNumber(totalPrice)}</div>
+            <div className="totalPrice col-span-2 flex items-center justify-center">{formatPrice(fixNumber(totalPrice))}₫</div>
             <div className="remove col-span-1 flex items-center justify-center">
                 <GoTrash
                     className="text-red-500 cursor-pointer"
