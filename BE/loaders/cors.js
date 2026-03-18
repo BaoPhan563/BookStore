@@ -15,7 +15,7 @@ var corsOptionsDelegate = (req, callback) => {
   var corsOptions;
   if (whitelist.indexOf(req.header("Origin")) !== -1) {
     //neu origin co trong whitelist
-    corsOptions = { origin: true }; //cho phep truy cap
+    corsOptions = { origin: true, credentials: true }; //cho phep truy cap
   } else {
     corsOptions = { origin: false }; //khong cho phep truy cap
   }
