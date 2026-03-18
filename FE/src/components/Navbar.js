@@ -38,7 +38,7 @@ const Navbar = ({ onSearch }) => {
     const fetchUserData = () => {
         const token = getToken() || getGoogleToken();
         axios
-            .get(`${process.env.REACT_APP_API_URL}/users/profile`, {
+            .get(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

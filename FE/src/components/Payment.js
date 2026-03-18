@@ -14,7 +14,7 @@ export default function Payment({ deleteCart }) {
     // Fetch user profile data when component mounts
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}/users/profile`,
+        `${process.env.REACT_APP_API_URL}/api/users/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
