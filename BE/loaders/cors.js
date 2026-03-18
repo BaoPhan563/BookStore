@@ -7,6 +7,7 @@ const whitelist = [
   "http://localhost:3001",
   "https://localhost:3443",
   "http://localhost:3000",
+  "https://bookstore-kwp8.onrender.com",
 ];
 //corsOptionsDelegate: ham kiem tra xem origin co trong whitelist khong
 var corsOptionsDelegate = (req, callback) => {

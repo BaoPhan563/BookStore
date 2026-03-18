@@ -11,7 +11,7 @@ export default function PaymentFail() {
         // Fetch user profile data when component mounts
         axios
             .get(
-                'http://localhost:3000/api/payment/cancel',
+                `${process.env.REACT_APP_API_URL}/api/payment/cancel`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

@@ -38,7 +38,7 @@ const Navbar = ({ onSearch }) => {
     const fetchUserData = () => {
         const token = getToken() || getGoogleToken();
         axios
-            .get('http://localhost:3000/api/users/profile', {
+            .get(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -55,7 +55,7 @@ const Navbar = ({ onSearch }) => {
     const fetchCartItemCount = () => {
         const token = getToken() || getGoogleToken();
         axios
-            .get('http://localhost:3000/api/cart', {
+            .get(`${process.env.REACT_APP_API_URL}/api/cart`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

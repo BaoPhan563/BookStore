@@ -10,7 +10,7 @@ export default function PaymentSuccess() {
         const deleteCart = async () => {
             try {
                 const token = getToken(); // Assuming you have a function to get the token
-                let response = await axios.delete('http://localhost:3000/api/cart/deleteCart', {
+                let response = await axios.delete(`${process.env.REACT_APP_API_URL}/api/cart/deleteCart`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

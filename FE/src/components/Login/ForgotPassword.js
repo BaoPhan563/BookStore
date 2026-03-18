@@ -11,7 +11,7 @@ const ResetPassword = () => {
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/api/users/forgotPassword', { email });
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/forgotPassword`, { email });
             toast.success('OTP has been sent to your email');
             setTimeout(() => {
                 setStep(2);
@@ -25,7 +25,7 @@ const ResetPassword = () => {
     const handleResetSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/api/users/resetPassword', {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/resetPassword`, {
                 email,
                 otp,
                 newPassword,

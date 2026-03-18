@@ -15,7 +15,7 @@ const PaymentReturn = () => {
     const token = getToken() || getGoogleToken();
     axios
       .get(
-        `http://localhost:3000/api/paymentReturn/vnpay_return${location.search}`,
+        `${process.env.REACT_APP_API_URL}/api/paymentReturn/vnpay_return${location.search}`,
         // {
         //   headers: {
         //     Authorization: `Bearer ${token}`,
@@ -29,7 +29,7 @@ const PaymentReturn = () => {
         if (response.data.success) {
           // Xóa giỏ hàng sau khi thanh toán thành công
           axios
-            .delete("http://localhost:3000/api/cart/deleteCart", {
+            .delete(`${process.env.REACT_APP_API_URL}/api/cart/deleteCart`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
