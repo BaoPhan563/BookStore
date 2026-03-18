@@ -9,7 +9,7 @@ const AuthorList = () => {
     const fetchAuthors = async () => {
       try {
         const token = getToken();
-        const response = await axios.get("http://localhost:5000/books/allauthor", {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/allauthor`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

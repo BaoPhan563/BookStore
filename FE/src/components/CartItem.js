@@ -17,7 +17,7 @@ export default function CartItem({ item, updateCart, removeFromCart }) {
             let response;
             if (action === 'increase') {
                 response = await axios.put(
-                    `/cart/increase/${item._id}/product/${item.book._id}`,
+                    `${process.env.REACT_APP_API_URL}/cart/increase/${item._id}/product/${item.book._id}`,
                     {},
                     {
                         headers: {
@@ -27,7 +27,7 @@ export default function CartItem({ item, updateCart, removeFromCart }) {
                 );
             } else {
                 response = await axios.put(
-                    `/cart/decrease/${item._id}/product/${item.book._id}`,
+                    `${process.env.REACT_APP_API_URL}/cart/decrease/${item._id}/product/${item.book._id}`,
                     {},
                     {
                         headers: {
@@ -47,7 +47,7 @@ export default function CartItem({ item, updateCart, removeFromCart }) {
     const handleRemoveFromCart = async () => {
         try {
             const token = getToken();
-            await axios.delete(`/cart/${item._id}/product/${item.book._id}`, {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/cart/${item._id}/product/${item.book._id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

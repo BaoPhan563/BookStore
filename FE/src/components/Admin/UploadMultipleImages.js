@@ -23,7 +23,7 @@ const UploadMultipleImages = () => {
 
     try {
       const token = getToken();
-      const response = await axios.post(`/upload/many/${bookId}`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/upload/many/${bookId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`

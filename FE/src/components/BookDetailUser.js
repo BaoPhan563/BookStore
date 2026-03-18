@@ -129,7 +129,7 @@ const BookDetail = () => {
         try {
             const token = getToken();
             await axios.post(
-                `/books/${id}/comments`,
+                `${process.env.REACT_APP_API_URL}/api/books/${id}/comments`,
                 {
                     comment: commentText,
                     rating: rating,
@@ -142,7 +142,7 @@ const BookDetail = () => {
             );
             toast.success('Your comment has been successfully posted');
             // Refresh book data after posting comment
-            const response = await axios.get(`/books/${id}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

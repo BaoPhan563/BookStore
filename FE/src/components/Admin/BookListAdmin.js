@@ -17,7 +17,7 @@ const BookListAdmin = () => {
   const fetchBooks = async () => {
     try {
       const token = getToken();
-      const response = await axios.get('/books', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +43,7 @@ const BookListAdmin = () => {
   const confirmDeleteAllBooks = async () => {
     try {
       const token = getToken();
-      await axios.delete('/books', {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/books`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -60,7 +60,7 @@ const BookListAdmin = () => {
   const confirmDeleteBook = async () => {
     try {
       const token = getToken();
-      await axios.delete(`/books/${bookToDelete}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/books/${bookToDelete}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -105,7 +105,7 @@ const BookListAdmin = () => {
       {books.length > 0 ? (
         <ul className="divide-y divide-gray-200">
           {books.map((book) => (
-            <Link key={book._id} to={`/books/${book._id}`}>
+            <Link key={book._id} to={`${process.env.REACT_APP_API_URL}/api/books/${book._id}`}>
               <li className="py-4 hover:shadow-md p-6 flex items-center justify-between">
                 <div className="flex items-center">
                 <img

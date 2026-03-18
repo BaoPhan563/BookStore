@@ -9,7 +9,7 @@ const GenreList = () => {
     const fetchGenres = async () => {
       try {
         const token = getToken();
-        const response = await axios.get("http://localhost:5000/books/allgenre", {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/allgenre`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
