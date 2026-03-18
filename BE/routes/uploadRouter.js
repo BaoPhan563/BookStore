@@ -6,6 +6,8 @@ const cors = require("../loaders/cors");
 const multer = require("multer");
 const admin = require("firebase-admin");
 const serviceAccount = require("../configs/firebaseConfig");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const uploadRouter = express.Router();
 uploadRouter.use(bodyParser.json());
@@ -13,7 +15,7 @@ uploadRouter.use(bodyParser.json());
 // Initialize Firebase
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: "bookstore-740d1.appspot.com",
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET, // Sử dụng biến môi trường để lấy tên bucket
 });
 
 const bucket = admin.storage().bucket();

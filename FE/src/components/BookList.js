@@ -210,10 +210,10 @@ const BookList = ({ searchTerm }) => {
                                         : 'default-image-url.jpg'
                                 }
                                 alt={book.title}
-                                className="w-full max-h-screen object-cover rounded-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl"
+                                className="w-[300px] h-[300px] object-cover rounded-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl"
                             />
                             <div className="p-4">
-                                <h2 className="text-l font-thin mb-2 text-gray-800 hover:underline ">{book.title}</h2>
+                                <h2 className="text-l font-thin mb-2 text-gray-800 hover:underline text-ellipsis text-nowrap max-w-[300px] overflow-hidden">{book.title}</h2>
                                 {/* <p className="text-gray-700 mb-2">{book.description}</p> */}
                                 <div className="mb-2">
                                     {/* <p className="text-gray-900 font-medium">
@@ -226,7 +226,8 @@ const BookList = ({ searchTerm }) => {
                                 <div className="">
                                 {/* flex items-center justify-between */}
                                     <p className="text-gray-900 font-medium text-lg hover:text-green-500">
-                                        $ {formatPrice(book.price)} USD
+                                        {/* $ {formatPrice(book.price)} USD */}
+                                        {formatPrice(book.price)}₫
                                     </p>
                                     <button
                                         onClick={(e) => {
@@ -238,7 +239,7 @@ const BookList = ({ searchTerm }) => {
                                             user && user.admin
                                                 ? 'border-gray-400 text-gray-400  cursor-not-allowed pr-[85px] pl-[85px]'
                                                 : 'text-orange-500  border-orange-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-6 rounded-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl'
-                                        } px-[114px] py-3 border-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-6  rounded-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl`}
+                                        } px-[85px] py-[10px] border-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mt-6  rounded-lg overflow-hidden transform transition-transform hover:scale-105 hover:shadow-2xl`}
                                     >
                                         Add To Cart
                                     </button>

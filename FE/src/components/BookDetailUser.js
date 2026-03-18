@@ -164,6 +164,10 @@ const BookDetail = () => {
         return <div className="text-center py-8 text-xl text-red-600">Error: {error}</div>;
     }
 
+    const formatPrice = (price) => {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    };
+
     return (
         <div className="container mx-auto px-4 py-8">
             <ToastContainer />
