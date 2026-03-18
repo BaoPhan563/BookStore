@@ -18,7 +18,7 @@ const ProfilePage = () => {
         const fetchUserProfile = async () => {
             try {
                 const token = getToken() || googleToken;
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/users/profile`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

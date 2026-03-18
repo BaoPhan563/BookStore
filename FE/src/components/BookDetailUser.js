@@ -42,7 +42,7 @@ const BookDetail = () => {
         const fetchUserData = async () => {
             try {
                 const token = getToken() || getGoogleToken();
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/users/profile`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
