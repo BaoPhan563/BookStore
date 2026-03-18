@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import Navbar from "./components/Navbar";
 import BookList from "./components/BookList";
 import About from "./components/About";
@@ -79,6 +80,7 @@ const App = () => {
         <Route path="/payment/cancel" element={<PaymentFail />} />
       </Routes>
       <Footer />
+      <SpeedInsights />
     </Router>
   );
 };
