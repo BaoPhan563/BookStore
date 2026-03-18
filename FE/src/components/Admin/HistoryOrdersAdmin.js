@@ -10,7 +10,7 @@ const HistoryOrdersAdmin = () => {
     const fetchOrders = async () => {
       try {
         const token = getToken();
-        const response = await axios.get('/orders/admin', {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/admin`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(response.data);

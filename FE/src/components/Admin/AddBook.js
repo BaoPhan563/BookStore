@@ -17,7 +17,7 @@ const AddBook = () => {
     e.preventDefault();
     try {
       const token = getToken();
-      const response = await axios.post('/books', {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/books`, {
         title,
         author,
         publisher,

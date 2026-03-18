@@ -14,7 +14,7 @@ export default function Cart() {
     const fetchCart = async () => {
       try {
         const token = getToken() || getGoogleToken();
-        const response = await axios.get("/cart", {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/cart`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

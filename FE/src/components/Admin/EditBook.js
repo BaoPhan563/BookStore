@@ -19,7 +19,7 @@ const EditBook = () => {
     const fetchBookDetail = async () => {
       try {
         const token = getToken();
-        const response = await axios.get(`/books/${id}`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,12 +43,12 @@ const EditBook = () => {
     e.preventDefault();
     try {
       const token = getToken();
-      await axios.put(`/books/${id}`, book, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/books/${id}`, book, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate(`/books/${id}`);
+      navigate(`${process.env.REACT_APP_API_URL}/api/books/${id}`);
     } catch (error) {
       console.error('Error updating book:', error);
       // Handle error (e.g., show error message)

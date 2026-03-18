@@ -18,7 +18,7 @@ const BookList = ({ searchTerm }) => {
         const fetchBooks = async () => {
             try {
                 const token = getToken();
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/books`, {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -84,7 +84,7 @@ const BookList = ({ searchTerm }) => {
     const fetchBooksByPriceRange = async (min, max) => {
         try {
             const token = getToken();
-            const response = await axios.get(`/books/price/from${min}/to${max}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/price/from${min}/to${max}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -100,7 +100,7 @@ const BookList = ({ searchTerm }) => {
     const fetchBooksByRating = async (minRating) => {
         try {
             const token = getToken();
-            const response = await axios.get(`/books/rating/${minRating}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/rating/${minRating}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

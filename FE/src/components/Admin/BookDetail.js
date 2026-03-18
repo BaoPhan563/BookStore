@@ -15,7 +15,7 @@ const BookDetail = ({ books }) => {
         const fetchBookDetail = async () => {
             try {
                 const token = getToken();
-                const response = await axios.get(`/books/${id}`, {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -58,7 +58,7 @@ const BookDetail = ({ books }) => {
     const setDefaultImage = async (imageId) => {
         try {
             const token = getToken();
-            await axios.get(`/upload/${book._id}/setDefault/${imageId}`, {
+            await axios.get(`${process.env.REACT_APP_API_URL}/upload/${book._id}/setDefault/${imageId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -73,7 +73,7 @@ const BookDetail = ({ books }) => {
     const deleteImage = async (bookId, imageId) => {
         try {
             const token = getToken();
-            await axios.delete(`/upload/${bookId}/${imageId}`, {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/upload/${bookId}/${imageId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -94,7 +94,7 @@ const BookDetail = ({ books }) => {
     const setBookStatus = async (status) => {
         try {
             const token = getToken();
-            const response = await axios.get(`/books/${book._id}/set?query=${status}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/${book._id}/set?query=${status}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
