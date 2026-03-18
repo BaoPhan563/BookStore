@@ -22,7 +22,7 @@ const ChangePassword = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3000/api/users/changePassword', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/changePassword`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

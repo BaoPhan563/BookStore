@@ -18,7 +18,7 @@ const BookList = ({ searchTerm }) => {
         const fetchBooks = async () => {
             try {
                 const token = getToken();
-                const response = await axios.get('/books', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/books`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -34,7 +34,7 @@ const BookList = ({ searchTerm }) => {
         const fetchUserData = async () => {
             try {
                 const token = getToken() || getGoogleToken();
-                const response = await axios.get('http://localhost:3000/api/users/profile', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

@@ -14,7 +14,7 @@ export default function Payment({ deleteCart }) {
     // Fetch user profile data when component mounts
     axios
       .get(
-        "http://localhost:3000/api/users/profile",
+        `${process.env.REACT_APP_API_URL}/api/users/profile`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -52,7 +52,7 @@ export default function Payment({ deleteCart }) {
     axios
       .post(
         // 'http://localhost:3000/api/payment/create_payment_paypal',
-        "http://localhost:3000/api/payment/create_payment_url",
+        `${process.env.REACT_APP_API_URL}/api/payment/create_payment_url`,
         {
           // quantity: totalQuantity,
           // amount: totalPrice,

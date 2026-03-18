@@ -18,7 +18,7 @@ const ProfilePage = () => {
         const fetchUserProfile = async () => {
             try {
                 const token = getToken() || googleToken;
-                const response = await fetch('http://localhost:3000/api/users/profile', {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/profile`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const ProfilePage = () => {
     const handleSaveProfile = async () => {
         try {
             const token = getToken() || googleToken;
-            const response = await fetch('http://localhost:3000/api/users/editProfile', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/editProfile`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
