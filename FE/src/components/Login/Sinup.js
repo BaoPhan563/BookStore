@@ -42,7 +42,7 @@ function RegisterUser() {
                 toast.error('Telephone invalid !!!');
             } else {
                 // Nếu đăng ký thành công
-                const res = await instance.post(`${process.env.REACT_APP_API_URL}/users/signup`, {
+                const res = await instance.post(`${process.env.REACT_APP_API_URL}/api/users/signup`, {
                     fullname,
                     email,
                     password,

@@ -23,7 +23,7 @@ function LoginUser() {
         }
 
         try {
-            const res = await instance.post(`${process.env.REACT_APP_API_URL}/users/login`, { username: username, password });
+            const res = await instance.post(`${process.env.REACT_APP_API_URL}/api/users/login`, { username: username, password });
             console.log('Login Response:', res.data);
 
             if (res.data) {
