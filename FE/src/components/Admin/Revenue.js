@@ -4,10 +4,10 @@ import { DollarSign, Calendar, BarChart2, BookOpen } from 'react-feather';
 import { getToken } from '../Login/app/static'; // Adjust the import path as necessary
 
 const RevenueDashboard = () => {
-  const [dailyRevenue, setDailyRevenue] = useState(null);
-  const [monthlyRevenue, setMonthlyRevenue] = useState(null);
-  const [yearlyRevenue, setYearlyRevenue] = useState(null);
-  const [totalQuantity, setTotalQuantity] = useState(null);
+  const [dailyRevenue, setDailyRevenue] = useState(0);
+  const [monthlyRevenue, setMonthlyRevenue] = useState(0);
+  const [yearlyRevenue, setYearlyRevenue] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
 
   useEffect(() => {
     const token = getToken();
@@ -67,17 +67,21 @@ const RevenueDashboard = () => {
     fetchTotalQuantity();
   }, []);
 
+  const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
   return (
     <div className="container mx-auto p-4 h-[443px] font-times">
-      <h1 className="text-2xl font-bold mb-4">Revenue Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-4">Doanh thu</h1>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="bg-white p-4 rounded-lg shadow-md flex items-center">
           <div className="mr-4 p-3 bg-blue-500 rounded-full">
             <DollarSign className="text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold mb-2">Daily Revenue</h2>
-            <p className="text-xl">${dailyRevenue}</p>
+            <h2 className="text-lg font-semibold mb-2">Doanh thu hôm nay</h2>
+            <p className="text-xl">{formatPrice(dailyRevenue)}₫</p>
           </div>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -85,8 +89,8 @@ const RevenueDashboard = () => {
             <Calendar className="text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold mb-2">Monthly Revenue</h2>
-            <p className="text-xl">${monthlyRevenue}</p>
+            <h2 className="text-lg font-semibold mb-2">Doanh thu tháng này</h2>
+            <p className="text-xl">{formatPrice(monthlyRevenue)}₫</p>
           </div>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -94,8 +98,8 @@ const RevenueDashboard = () => {
             <BarChart2 className="text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold mb-2">Yearly Revenue</h2>
-            <p className="text-xl">${yearlyRevenue}</p>
+            <h2 className="text-lg font-semibold mb-2">Doanh thu năm nay</h2>
+            <p className="text-xl">{formatPrice(yearlyRevenue)}₫</p>
           </div>
         </div>
         <div className="bg-white p-4 rounded-lg shadow-md flex items-center">
@@ -103,7 +107,7 @@ const RevenueDashboard = () => {
             <BookOpen className="text-white" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold mb-2">Total Quantity Sold</h2>
+            <h2 className="text-lg font-semibold mb-2">Tổng số lượng bán ra</h2>
             <p className="text-xl">{totalQuantity}</p>
           </div>
         </div>

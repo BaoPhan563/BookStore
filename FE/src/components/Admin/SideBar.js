@@ -12,7 +12,7 @@ const Sidebar = ({ onSelectContent }) => {
                             onClick={() => onSelectContent('/dashboard/history')}
                             className="block py-2 px-4 hover:bg-gray-700"
                         >
-                            Order History
+                            Lịch sử đơn hàng
                         </Link>
                     </li>
                     <li className="my-2">
@@ -21,7 +21,7 @@ const Sidebar = ({ onSelectContent }) => {
                             onClick={() => onSelectContent('/dashboard/revenue')}
                             className="block py-2 px-4 hover:bg-gray-700"
                         >
-                            Revenue
+                            Doanh thu
                         </Link>
                     </li>
                     <li className="my-2">
@@ -30,7 +30,7 @@ const Sidebar = ({ onSelectContent }) => {
                             onClick={() => onSelectContent('/dashboard/booklistadmin')}
                             className="block py-2 px-4 hover:bg-gray-700"
                         >
-                            Book List
+                            Quản lý sách
                         </Link>
                     </li>
                 </ul>

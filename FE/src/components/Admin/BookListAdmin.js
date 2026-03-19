@@ -82,23 +82,23 @@ const BookListAdmin = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Book List</h2>
+      <h2 className="text-2xl font-bold mb-4">Quản Lý Sách</h2>
       <div className="mb-4 flex items-center">
         <Link
           to="/addbook"
           className="bg-green-500 border-[1px] border-green-500 text-white rounded-sm px-4 py-[12px] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
-          Add New Book
+          Thêm Sách Mới
         </Link>
         {books.length === 0 && (
-          <p className="text-gray-500 ml-4">No books found. Add new books using the button above.</p>
+          <p className="text-gray-500 ml-4">Không có sách nào. Thêm sách mới bằng cách sử dụng nút ở trên.</p>
         )}
         {books.length > 0 && (
           <button
             onClick={handleDeleteAllBooks}
             className="border-red-500 text-red-500 border-2 px-4 py-2 rounded-sm hover:bg-red-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ml-4"
           >
-            Delete All Books
+            Xóa Tất Cả Sách
           </button>
         )}
       </div>
@@ -120,8 +120,8 @@ const BookListAdmin = () => {
                             />
                   <div>
                     <h3 className="text-xl font-semibold">{book.title}</h3>
-                    <p className="text-gray-600">Price: ${book.price}</p>
-                    <p className="text-gray-600">Quantity: {book.quantity}</p>
+                    <p className="text-gray-600">Giá: {book.price.toLocaleString('vi-VN')}₫</p>
+                    <p className="text-gray-600">Số lượng: {book.quantity}</p>
                   </div>
                 </div>
                 <div className="ml-4">
@@ -129,7 +129,7 @@ const BookListAdmin = () => {
                     onClick={() => handleDeleteBook(book._id, book.title)}
                     className="text-red-600 border-2 border-red-500 hover:bg-red-500 hover:text-white rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 px-4 py-2 ml-2"
                   >
-                    Delete
+                    Xóa
                   </button>
                 </div>
               </li>

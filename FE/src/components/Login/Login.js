@@ -18,7 +18,7 @@ function LoginUser() {
 
     const handleLoginUser = async () => {
         if (username === '' || password === '') {
-            toast.error('Email or password is invalid 11');
+            toast.error('Email hoặc mật khẩu không được để trống');
             return;
         }
 
@@ -38,7 +38,7 @@ function LoginUser() {
             }
         } catch (error) {
             console.error('Login failed:', error);
-            toast.error('Email or password is invalid.');
+            toast.error('Email hoặc mật khẩu không đúng');
         }
     };
 
@@ -49,17 +49,17 @@ function LoginUser() {
                 <div className={cx('wrapper')}>
                     <div className={cx('inner')}>
                         <div className={cx('header-form-login')}>
-                            <span>Login</span>
-                            <p>Enter login information here</p>
+                            <span>Đăng nhập</span>
+                            <p>Vui lòng nhập thông tin đăng nhập</p>
                         </div>
                         <div className={cx('input-box')}>
                             <div className={cx('form-input')}>
-                                <label>Username </label>
-                                <input placeholder="Tên đăng nhập" onChange={(e) => setUsername(e.target.value)} />
+                                <label>Tên đăng nhập </label>
+                                <input placeholder="Nhập tên đăng nhập" onChange={(e) => setUsername(e.target.value)} />
                             </div>
 
                             <div className={cx('form-input')}>
-                                <label>Password</label>
+                                <label>Mật khẩu</label>
                                 <input
                                     placeholder="Nhập mật khẩu"
                                     type="password"
@@ -68,19 +68,19 @@ function LoginUser() {
                             </div>
 
                             <div className={cx('single-input-fields')}>
-                                <a href="/resetpassword">Forgot Password</a>
+                                <a href="/resetpassword">Quên mật khẩu</a>
                             </div>
                         </div>
                         {error && <p className={cx('error-message')}>{error}</p>} {/* Hiển thị thông báo lỗi */}
                         <div className={cx('login-footer')}>
                             <p>
-                                Do not have an account?{' '}
+                                Chưa có tài khoản?{' '}
                                 <Link id={cx('link')} to="/signup">
-                                    Sign up
+                                    Đăng ký
                                 </Link>{' '}
-                                here
+                                ở đây
                             </p>
-                            <button onClick={handleLoginUser}>Login</button>
+                            <button onClick={handleLoginUser}>Đăng nhập</button>
                         </div>
                         <div className="flex justify-center mt-4 mb-4">
                             <button
@@ -92,7 +92,7 @@ function LoginUser() {
                                     alt="Google Logo"
                                     className="w-5 h-5 mr-2"
                                 />
-                                Sign in with Google
+                                Đăng nhập với Google
                             </button>
                         </div>
                     </div>
