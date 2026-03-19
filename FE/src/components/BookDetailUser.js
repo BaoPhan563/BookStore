@@ -75,7 +75,7 @@ const BookDetail = () => {
         try {
             const token = getToken();
             await axios.post(
-                '/cart',
+                `${process.env.REACT_APP_API_URL}/api/cart`,
                 {
                     book: book._id,
                     price: book.price,
