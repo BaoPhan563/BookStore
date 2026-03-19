@@ -15,7 +15,7 @@ const RevenueDashboard = () => {
     // Function to fetch daily revenue
     const fetchDailyRevenue = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/dashboard/daily-revenue`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard/daily-revenue`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setDailyRevenue(response.data[0]?.daily_revenue || 0);
@@ -27,7 +27,7 @@ const RevenueDashboard = () => {
     // Function to fetch monthly revenue
     const fetchMonthlyRevenue = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/dashboard/monthly-revenue`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard/monthly-revenue`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMonthlyRevenue(response.data[0]?.monthly_revenue || 0);
@@ -39,7 +39,7 @@ const RevenueDashboard = () => {
     // Function to fetch yearly revenue
     const fetchYearlyRevenue = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/dashboard/yearly-revenue`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard/yearly-revenue`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setYearlyRevenue(response.data[0]?.yearly_revenue || 0);
@@ -51,7 +51,7 @@ const RevenueDashboard = () => {
     // Function to fetch total quantity
     const fetchTotalQuantity = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/dashboard/total-quantity`, {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/dashboard/total-quantity`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setTotalQuantity(response.data[0]?.total_quantity || 0);

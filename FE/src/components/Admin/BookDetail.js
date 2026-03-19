@@ -58,7 +58,7 @@ const BookDetail = ({ books }) => {
     const setDefaultImage = async (imageId) => {
         try {
             const token = getToken();
-            await axios.get(`${process.env.REACT_APP_API_URL}/upload/${book._id}/setDefault/${imageId}`, {
+            await axios.get(`${process.env.REACT_APP_API_URL}/api/upload/${book._id}/setDefault/${imageId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -73,7 +73,7 @@ const BookDetail = ({ books }) => {
     const deleteImage = async (bookId, imageId) => {
         try {
             const token = getToken();
-            await axios.delete(`${process.env.REACT_APP_API_URL}/upload/${bookId}/${imageId}`, {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/api/upload/${bookId}/${imageId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

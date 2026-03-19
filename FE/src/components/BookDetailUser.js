@@ -24,7 +24,7 @@ const BookDetail = () => {
         const fetchBook = async () => {
             try {
                 const token = getToken();
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/books/${id}`, {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
