@@ -11,17 +11,17 @@ const ImageUploader = ({ bookId }) => {
     const files = Array.from(event.target.files);
     try {
       await uploadMultipleImages(bookId, files);
-      toast.success('Images uploaded successfully'); // Thông báo khi tải ảnh thành công
+      toast.success('Ảnh đã được tải lên thành công'); // Thông báo khi tải ảnh thành công
       // window.location.reload(); // Tải lại trang sau khi tải ảnh thành công
     } catch (error) {
       setError(error.message);
-      toast.error(`Error: ${error.message}`); // Thông báo khi có lỗi xảy ra
+      toast.error(`Lỗi: ${error.message}`); // Thông báo khi có lỗi xảy ra
     }
   };
 
   const uploadMultipleImages = async (bookId, imageFiles) => {
     if (!bookId) {
-      throw new Error('Book ID is required');
+      throw new Error('Cần phải có bookId để tải ảnh lên');
     }
 
     const formData = new FormData();

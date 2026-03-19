@@ -91,13 +91,13 @@ const ProfilePage = () => {
 
     return (
         <div className="container mx-auto mt-8 h-[550px]">
-            <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">User Profile</h1>
+            <h1 className="text-3xl font-bold mb-6 text-center text-orange-600">Hồ sơ người dùng</h1>
             {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
             {isEditing ? (
                 <div className="max-w-xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
                     <div className="px-6 py-8 bg-orange-100">
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Fullname:</label>
+                            <label className="block text-sm font-medium text-gray-600">Họ và tên:</label>
                             <input
                                 type="text"
                                 name="fullname"
@@ -107,7 +107,7 @@ const ProfilePage = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Phone:</label>
+                            <label className="block text-sm font-medium text-gray-600">Số điện thoại:</label>
                             <input
                                 type="text"
                                 name="phone"
@@ -117,7 +117,7 @@ const ProfilePage = () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Address:</label>
+                            <label className="block text-sm font-medium text-gray-600">Địa chỉ:</label>
                             <input
                                 type="text"
                                 name="address"
@@ -131,13 +131,13 @@ const ProfilePage = () => {
                                 onClick={handleCancelEdit}
                                 className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
-                                Cancel
+                                Hủy
                             </button>
                             <button
                                 onClick={handleSaveProfile}
                                 className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
-                                Save
+                                Lưu
                             </button>
                         </div>
                     </div>
@@ -146,7 +146,7 @@ const ProfilePage = () => {
                 <div className="max-w-xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
                     <div className="px-6 py-8 bg-orange-100">
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Fullname:</label>
+                            <label className="block text-sm font-medium text-gray-600">Họ và tên:</label>
                             <p className="text-lg text-gray-800">{user.fullname}</p>
                         </div>
                         <div className="mb-4">
@@ -154,15 +154,15 @@ const ProfilePage = () => {
                             <p className="text-lg text-gray-800">{user.email}</p>
                         </div>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Username:</label>
+                            <label className="block text-sm font-medium text-gray-600">Tên người dùng:</label>
                             <p className="text-lg text-gray-800">{user.username}</p>
                         </div>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Address:</label>
+                            <label className="block text-sm font-medium text-gray-600">Địa chỉ:</label>
                             <p className="text-lg text-gray-800">{user.address}</p>
                         </div>
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-600">Phone:</label>
+                            <label className="block text-sm font-medium text-gray-600">Số điện thoại:</label>
                             <p className="text-lg text-gray-800">{user.phone}</p>
                         </div>
                         <div className="flex justify-between">
@@ -170,14 +170,14 @@ const ProfilePage = () => {
                                 onClick={handleEditProfile}
                                 className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
-                                Update Profile
+                                Cập nhật hồ sơ
                             </button>
 
                             <Link
                                 to="/"
                                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
-                                Back to Homepage
+                                Quay lại trang chủ
                             </Link>
 
                             {!googleToken && (
@@ -185,14 +185,14 @@ const ProfilePage = () => {
                                     className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                     onClick={handleChangePassword}
                                 >
-                                    Change Password
+                                    Đổi mật khẩu
                                 </button>
                             )}
                         </div>
                     </div>
                 </div>
             ) : (
-                <p className="text-center mt-4">Loading...</p>
+                <p className="text-center mt-4">Đang tải...</p>
             )}
         </div>
     );

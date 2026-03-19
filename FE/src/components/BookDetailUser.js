@@ -162,6 +162,14 @@ const BookDetail = () => {
       toast.error("Vui lòng đăng nhập để đăng bình luận");
       return;
     }
+    if (commentText.trim() === "") {
+      toast.error("Vui lòng nhập nội dung bình luận");
+      return;
+    }
+    if (rating === 0) {
+      toast.error("Vui lòng chọn đánh giá sao");
+      return;
+    }
     try {
       const token = getToken();
       await axios.post(

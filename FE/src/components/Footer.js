@@ -8,16 +8,16 @@ const Footer = () => {
                 <div className="flex justify-between items-center mb-6">
                     <div>
                         <h2 className="text-2xl font-semibold">FBStore</h2>
-                        <p className="text-white">Your favorite online bookstore</p>
+                        <p className="text-white">Cửa hàng sách trực tuyến yêu thích của bạn</p>
                     </div>
                     <div className="flex space-x-6">
-                        <Link to="/" className="hover:text-blue-300">Home</Link>
-                        <Link to="/about" className="hover:text-blue-300">About</Link>
-                        <Link to="/contact" className="hover:text-blue-300">Contact</Link>
+                        <Link to="/" className="hover:text-blue-300">Trang chủ</Link>
+                        <Link to="/about" className="hover:text-blue-300">Giới thiệu</Link>
+                        <Link to="/contact" className="hover:text-blue-300">Liên hệ</Link>
                     </div>
                 </div>
                 <div className="flex justify-between items-center border-t border-gray-700 pt-6">
-                    <p className="text-white">&copy; 2024 FBStore. All rights reserved.</p>
+                    <p className="text-white">&copy; 2024 Bản quyền thuộc về FBStore.</p>
                     <div className="flex space-x-4">
                         <a href="https://facebook.com" className="hover:text-blue-500">
                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

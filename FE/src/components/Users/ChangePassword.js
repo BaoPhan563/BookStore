@@ -50,17 +50,17 @@ const ChangePassword = () => {
 
     return (
         <div className="container mx-auto mt-8 mb-8">
-            <h1 className="text-3xl font-bold mb-6 text-center">Change Password</h1>
+            <h1 className="text-3xl font-bold mb-6 text-center">Đổi mật khẩu</h1>
             {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
             {success && (
-                <p className="text-green-500 mb-4 text-center">Password changed successfully. Please log in again...</p>
+                <p className="text-green-500 mb-4 text-center">Mật khẩu đã được thay đổi thành công. Vui lòng đăng nhập lại...</p>
             )}
             <form
                 className="max-w-xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden p-6"
                 onSubmit={handleSubmit}
             >
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">Current Password:</label>
+                    <label className="block text-sm font-medium text-gray-600">Mật khẩu hiện tại:</label>
                     <input
                         type="password"
                         name="oldPassword"
@@ -71,7 +71,7 @@ const ChangePassword = () => {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-600">New Password:</label>
+                    <label className="block text-sm font-medium text-gray-600">Mật khẩu mới:</label>
                     <input
                         type="password"
                         name="newPassword"
@@ -86,14 +86,14 @@ const ChangePassword = () => {
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
-                        Change Password
+                        Đổi mật khẩu
                     </button>
                     <button
                         type="button"
                         onClick={() => navigate('/profile')}
                         className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
-                        Cancel
+                        Hủy
                     </button>
                 </div>
             </form>

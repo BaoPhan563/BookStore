@@ -86,7 +86,7 @@ const BookListAdmin = () => {
       <div className="mb-4 flex items-center">
         <Link
           to="/addbook"
-          className="bg-green-500 border-[1px] border-green-500 text-white rounded-sm px-4 py-[12px] hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="bg-green-500 border-[1px] rounded-lg border-green-500 text-white px-4 py-2 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
           Thêm Sách Mới
         </Link>
@@ -96,7 +96,7 @@ const BookListAdmin = () => {
         {books.length > 0 && (
           <button
             onClick={handleDeleteAllBooks}
-            className="border-red-500 text-red-500 border-2 px-4 py-2 rounded-sm hover:bg-red-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ml-4"
+            className="border-red-500 text-red-500 border-2 rounded-lg px-4 py-2 hover:bg-red-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ml-4"
           >
             Xóa Tất Cả Sách
           </button>
@@ -105,8 +105,8 @@ const BookListAdmin = () => {
       {books.length > 0 ? (
         <ul className="divide-y divide-gray-200">
           {books.map((book) => (
-            <Link key={book._id} to={`${process.env.REACT_APP_API_URL}/api/books/${book._id}`}>
-              <li className="py-4 hover:shadow-md p-6 flex items-center justify-between">
+            <Link key={book._id} to={`/books/${book._id}`}>
+              <li className="py-4 hover:shadow-md p-6 flex items-center justify-between border-b border-gray-200 rounded-lg mb-4 transition-shadow duration-300">
                 <div className="flex items-center">
                 <img
                                 src={
@@ -127,7 +127,7 @@ const BookListAdmin = () => {
                 <div className="ml-4">
                   <button
                     onClick={() => handleDeleteBook(book._id, book.title)}
-                    className="text-red-600 border-2 border-red-500 hover:bg-red-500 hover:text-white rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 px-4 py-2 ml-2"
+                    className="text-red-600 border-2 border-red-500 hover:bg-red-500 hover:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 px-4 py-2 ml-2"
                   >
                     Xóa
                   </button>

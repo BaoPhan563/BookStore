@@ -101,10 +101,10 @@ const BookDetail = ({ books }) => {
             });
             setBook(response.data);
             console.log(`Book status set to ${status}`);
-            toast.success(`Book status set to ${status}`);
+            toast.success(`Trạng thái sách đã được cập nhật thành ${status}`);
         } catch (error) {
             console.error(`Error setting book status to ${status}:`, error);
-            toast.error('Error setting book status');
+            toast.error('Lỗi khi cập nhật trạng thái sách');
         }
     };
 
@@ -122,19 +122,19 @@ const BookDetail = ({ books }) => {
                         to={`/edit/${book._id}`}
                         className="bg-gradient-to-r from-orange-400 to-orange-600 text-white px-4 py-[11px] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 hover:from-orange-500 hover:to-orange-700"
                     >
-                        Edit Book
+                        Chỉnh sửa
                     </Link>
                     <button
                         onClick={() => setBookStatus('true')}
                         className="ml-2 bg-green-500 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 hover:bg-green-600"
                     >
-                        Set Active
+                        Kích hoạt
                     </button>
                     <button
                         onClick={() => setBookStatus('false')}
                         className="ml-2 border-red-500 border-2 text-red-500 px-4 py-[6px] hover:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 hover:bg-red-600"
                     >
-                        Set Inactive
+                        Vô hiệu hóa
                     </button>
                 </div>
             </div>
@@ -144,35 +144,35 @@ const BookDetail = ({ books }) => {
                         {/* Display book details */}
                         <tr className="bg-orange-100">
                             <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Attribute
+                                Thuộc tính
                             </td>
                             <td className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Value
+                                Chi tiết
                             </td>
                         </tr>
                         <tr className="bg-white">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Author</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Tác giả</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{book.author}</td>
                         </tr>
                         <tr className="bg-orange-50">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Publisher</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Nhà xuất bản</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{book.publisher}</td>
                         </tr>
                         <tr className="bg-white">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Genre</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Thể loại</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{book.genre}</td>
                         </tr>
                         <tr className="bg-orange-50">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Price</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${book.price}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Giá</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{book.price.toLocaleString('vi-VN')}₫</td>
                         </tr>
                         <tr className="bg-white">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Quantity</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Số lượng</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{book.quantity}</td>
                         </tr>
                         <tr className="bg-orange-50">
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                Description
+                                Mô tả
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{book.description}</td>
                         </tr>
@@ -182,7 +182,7 @@ const BookDetail = ({ books }) => {
             <ImageUploader bookId={book._id} onUploadSuccess={handleUploadSuccess} />
             {book.imageurls && book.imageurls.length > 0 && (
                 <div className="mt-4">
-                    <h3 className="text-xl font-bold mb-2">Images:</h3>
+                    <h3 className="text-xl font-bold mb-2">Hình ảnh:</h3>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {book.imageurls.map((image, index) => (
                             <div key={image._id} className="relative group">
@@ -199,13 +199,13 @@ const BookDetail = ({ books }) => {
                                         onClick={() => setDefaultImage(image._id)}
                                         className="bg-gray-800 text-white px-2 py-1 rounded-full text-xs mr-2 hover:bg-gray-700"
                                     >
-                                        Set as Default
+                                        Thiết lập mặc định
                                     </button>
                                     <button
                                         onClick={() => deleteImage(book._id, image._id)}
                                         className="bg-red-600 text-white px-2 py-1 rounded-full text-xs hover:bg-red-700"
                                     >
-                                        Delete
+                                        Xóa
                                     </button>
                                 </div>
                             </div>
