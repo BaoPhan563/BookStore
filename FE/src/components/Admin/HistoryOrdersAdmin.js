@@ -36,18 +36,22 @@ const HistoryOrdersAdmin = () => {
     }
   };
 
+  const formatPrice = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  };
+
   return (
     <div className="container mx-auto p-4 font-times">
-      <h1 className="text-3xl font-bold mb-6 text-orange-600">Order History</h1>
+      <h1 className="text-3xl font-bold mb-6 text-orange-600">Lịch sử đơn hàng</h1>
       <ToastContainer />
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
           <thead className="bg-orange-600">
             <tr>
-              <th className="py-4 px-6 text-left text-white font-semibold">Order ID</th>
-              <th className="py-4 px-6 text-left text-white font-semibold">User</th>
-              <th className="py-4 px-6 text-left text-white font-semibold">Books</th>
-              <th className="py-4 px-6 text-left text-white font-semibold">Status</th>
+              <th className="py-4 px-6 text-left text-white font-semibold">ID Đơn hàng</th>
+              <th className="py-4 px-6 text-left text-white font-semibold">Người mua</th>
+              <th className="py-4 px-6 text-left text-white font-semibold">Sách</th>
+              <th className="py-4 px-6 text-left text-white font-semibold">Tình trạng</th>
             </tr>
           </thead>
           <tbody>
@@ -63,9 +67,9 @@ const HistoryOrdersAdmin = () => {
                   <ul className="list-inside">
                     {order.order_details.map((detail) => (
                       <li key={detail.book._id} className="mb-1">
-                        <div className="font-semibold">{detail.book.title}</div>
-                        <div>by {detail.book.author}</div>
-                        <div className="text-orange-600">${detail.book.price}</div>
+                        <div className="">Tiêu đề: {detail.book.title}</div>
+                        <div>Tác giả: {detail.book.author}</div>
+                        <div className="text-orange-600">Đơn giá: {formatPrice(detail.book.price)}₫</div>
                       </li>
                     ))}
                   </ul>

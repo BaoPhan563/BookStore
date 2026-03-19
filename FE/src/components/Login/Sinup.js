@@ -30,16 +30,16 @@ function RegisterUser() {
 
             if (fullname === '' || email === '' || password === '' || phone === '') {
                 // Kiểm tra xem fullname, email, password, confirmPassword
-                toast.error('Please check the information again !!!');
+                toast.error('Vui lòng nhập đầy đủ thông tin !!!');
             } else if (checkEmailUpperCase === true) {
                 // Kiểm tra xem email có chứa ký tự viết hoa không
-                toast.error('Invalid email !!!');
+                toast.error('Email không hợp lệ !!!');
             } else if (!checkEmailSyntax) {
                 // Kiểm tra cú pháp email
-                toast.error('Invalid email !!!');
+                toast.error('Định dạng email không hợp lệ !!!');
             } else if (!checkPhone) {
                 // Kiểm tra tính hợp lệ của số điện thoại
-                toast.error('Telephone invalid !!!');
+                toast.error('Số điện thoại không hợp lệ !!!');
             } else {
                 // Nếu đăng ký thành công
                 const res = await instance.post(`${process.env.REACT_APP_API_URL}/api/users/signup`, {
@@ -51,7 +51,7 @@ function RegisterUser() {
                     address,
                 });
 
-                toast.success('Sign Up Success! Go to login page after 5 seconds.');
+                toast.success('Đăng ký thành công! Chuyển đến trang đăng nhập sau 5 giây.');
                 setTimeout(() => {
                     navigate('/login');
                 }, 5000);
@@ -62,17 +62,17 @@ function RegisterUser() {
                     toast.error(error.response.data.message);
                 }
                 if (error.response.status === 500) {
-                    toast.error('Username or email already exists');
+                    toast.error('Tên người dùng hoặc email đã tồn tại');
                 } else {
                     // Other server errors
-                    toast.error('An error occurred. Please try again later.');
+                    toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
                 }
             } else if (error.request) {
                 // The request was made but no response was received
-                toast.error('No response from server. Please try again later.');
+                toast.error('Không nhận được phản hồi từ máy chủ. Vui lòng thử lại sau.');
             } else {
                 // Something happened in setting up the request that triggered an error
-                toast.error('An error occurred. Please try again later.');
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
             }
         }
     };
@@ -84,40 +84,40 @@ function RegisterUser() {
                 <div className={cx('wrapper-signup')}>
                     <div className={cx('inner')}>
                         <div className={cx('header-form-login')}>
-                            <span>Sign Up</span>
-                            <p>Create your account to get full access</p>
+                            <span>Đăng ký</span>
+                            <p>Tạo tài khoản để có quyền truy cập đầy đủ</p>
                         </div>
                         <div className={cx('input-box')}>
                             <div className={cx('form-input')}>
-                                <label>UserName</label>
-                                <input placeholder="Enter User Name" onChange={(e) => setUsername(e.target.value)} />
+                                <label>Tên đăng nhập</label>
+                                <input placeholder="Nhập tên đăng nhập" onChange={(e) => setUsername(e.target.value)} />
                             </div>
                             <div className={cx('form-input')}>
-                                <label>Full Name</label>
-                                <input placeholder="Enter Full Name" onChange={(e) => setFullname(e.target.value)} />
+                                <label>Họ và tên</label>
+                                <input placeholder="Nhập họ và tên" onChange={(e) => setFullname(e.target.value)} />
                             </div>
 
                             <div className={cx('form-input')}>
-                                <label>Email Address</label>
-                                <input placeholder="Enter Email Address" onChange={(e) => setEmail(e.target.value)} />
+                                <label>Địa chỉ email</label>
+                                <input placeholder="Nhập địa chỉ email" onChange={(e) => setEmail(e.target.value)} />
                             </div>
                             <div className={cx('form-input')}>
-                                <label>Phone</label>
+                                <label>Số điện thoại</label>
                                 <input
-                                    placeholder="Enter Telephone Number"
+                                    placeholder="Nhập số điện thoại"
                                     onChange={(e) => setPhone(e.target.value)}
                                 />
                             </div>
                             <div className={cx('form-input')}>
-                                <label>Address</label>
-                                <input placeholder="Enter Your Address" onChange={(e) => setAddress(e.target.value)} />
+                                <label>Địa chỉ</label>
+                                <input placeholder="Nhập địa chỉ" onChange={(e) => setAddress(e.target.value)} />
                             </div>
 
                             <div className={cx('form-input')}>
-                                <label>Password</label>
+                                <label>Mật khẩu</label>
 
                                 <input
-                                    placeholder="Enter Password"
+                                    placeholder="Nhập mật khẩu"
                                     type="password"
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
@@ -125,13 +125,13 @@ function RegisterUser() {
                         </div>
                         <div className={cx('login-footer')}>
                             <p>
-                                Already have an account?&nbsp;
+                                Đã có tài khoản?&nbsp;
                                 <Link id={cx('link')} to="/login">
-                                    Login
+                                    Đăng nhập
                                 </Link>
-                                &nbsp;here
+                                &nbsp;ở đây
                             </p>
-                            <button onClick={handleRegister}>Sign Up</button>
+                            <button onClick={handleRegister}>Đăng ký</button>
                         </div>
                     </div>
                 </div>

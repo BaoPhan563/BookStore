@@ -5,32 +5,32 @@ const About = () => {
         <div id="about" className="bg-gray-100 min-h-screen flex items-center justify-center">
             <div className="container mx-auto px-4 py-16">
                 <div className="bg-white shadow-lg rounded-lg p-8">
-                    <h1 className="text-4xl font-bold mb-6 text-orange-600">About FBstore</h1>
+                    <h1 className="text-4xl font-bold mb-6 text-orange-600">Về FBstore</h1>
                     <p className="text-gray-700 text-lg mb-6">
-                        Welcome to <span className="font-semibold text-gray-900">FBstore</span>, your premier destination for a diverse collection of books catering to all readers. At FBstore, we are passionate about books and committed to providing high-quality products along with exceptional customer service.
+                        Chào mừng bạn đến với <span className="font-semibold text-gray-900">FBstore</span>, điểm đến hàng đầu cho bộ sưu tập sách đa dạng phục vụ mọi độc giả. Tại FBstore, chúng tôi đam mê sách và cam kết cung cấp các sản phẩm chất lượng cao cùng dịch vụ khách hàng xuất sắc.
                     </p>
-                    <h2 className="text-3xl font-semibold mt-8 mb-4 text-orange-600">Our Mission</h2>
+                    <h2 className="text-3xl font-semibold mt-8 mb-4 text-orange-600">Sứ mệnh của chúng tôi</h2>
                     <p className="text-gray-700 text-lg mb-6">
-                        Our mission is to foster a love for reading by offering a comprehensive selection of books from various genres, including fiction, non-fiction, academic, and more. We believe that reading enriches lives, and our goal is to make books accessible and enjoyable for everyone.
+                        Sứ mệnh của chúng tôi là nuôi dưỡng tình yêu đọc sách bằng cách cung cấp lựa chọn toàn diện các cuốn sách từ nhiều thể loại khác nhau, bao gồm tiểu thuyết, phiêu lưu, học thuật và nhiều hơn nữa. Chúng tôi tin rằng việc đọc làm phong phú cuộc sống, và mục tiêu của chúng tôi là làm cho sách trở nên tiếp cận và thú vị cho tất cả mọi người.
                     </p>
-                    <h2 className="text-3xl font-semibold mt-8 mb-4 text-orange-600">What We Offer</h2>
+                    <h2 className="text-3xl font-semibold mt-8 mb-4 text-orange-600">Dịch vụ chúng tôi cung cấp</h2>
                     <ul className="list-disc list-inside text-gray-700 text-lg mb-6">
-                        <li>A vast collection of books across multiple genres.</li>
-                        <li>User-friendly online shopping experience.</li>
-                        <li>Personalized recommendations and book reviews.</li>
-                        <li>Frequent discounts and promotions.</li>
-                        <li>Dedicated customer support team.</li>
+                        <li>Một bộ sưu tập sách khổng lồ trong nhiều thể loại.</li>
+                        <li>Trải nghiệm mua sắm trực tuyến thân thiện.</li>
+                        <li>Đề xuất cá nhân hóa và đánh giá sách.</li>
+                        <li>Giảm giá và chương trình khuyến mãi thường xuyên.</li>
+                        <li>Đội ngũ hỗ trợ khách hàng chuyên nghiệp.</li>
                     </ul>
-                    <h2 className="text-3xl font-semibold mt-8 mb-4 text-orange-600">Our Commitment</h2>
+                    <h2 className="text-3xl font-semibold mt-8 mb-4 text-orange-600">Cam kết của chúng tôi</h2>
                     <p className="text-gray-700 text-lg mb-6">
-                        At FBstore, we are committed to ensuring customer satisfaction. We continuously strive to improve our services and expand our collection to meet the diverse needs of our readers. Whether you are a casual reader or a passionate bibliophile, FBstore has something for everyone.
+                        Tại FBstore, chúng tôi cam kết đảm bảo sự hài lòng của khách hàng. Chúng tôi liên tục nỗ lực để cải thiện dịch vụ và mở rộng bộ sưu tập nhằm đáp ứng các nhu cầu đa dạng của người đọc. Cho dù bạn là người đọc casual hay một nhà sưu tập sách đam mê, FBstore đều có điều gì đó dành cho bạn.
                     </p>
        
                     <p className="text-gray-700 text-lg mb-6">
-                        If you have any questions, suggestions, or feedback, please feel free to contact us. We value your input and are always here to assist you.
+                        Nếu bạn có bất kỳ câu hỏi, đề xuất hoặc phản hồi nào, vui lòng liên hệ với chúng tôi. Chúng tôi đánh giá cao sự đóng góp của bạn và luôn sẵn sàng hỗ trợ bạn.
                     </p>
                     <p className="text-gray-700 text-lg">
-                        Thank you for choosing <span className="font-semibold text-gray-900">FBstore</span>. Happy reading!
+                        Cảm ơn bạn đã chọn <span className="font-semibold text-gray-900">FBstore</span>. Chúc bạn đọc sách vui vẻ!
                     </p>
                 </div>
             </div>

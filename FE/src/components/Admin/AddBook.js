@@ -48,40 +48,40 @@ const AddBook = () => {
 
   return (
     <div className="container mx-auto p-4 font-times">
-      <h2 className="text-2xl font-bold mb-4">Add New Book</h2>
+      <h2 className="text-2xl font-bold mb-4">Thêm Sách Mới</h2>
       <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Title:</label>
+          <label className="block text-gray-700 font-bold mb-2">Tiêu đề:</label>
           <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Author:</label>
+          <label className="block text-gray-700 font-bold mb-2">Tác giả:</label>
           <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Publisher:</label>
+          <label className="block text-gray-700 font-bold mb-2">Nhà xuất bản:</label>
           <input type="text" value={publisher} onChange={(e) => setPublisher(e.target.value)} required className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Genre:</label>
+          <label className="block text-gray-700 font-bold mb-2">Thể loại:</label>
           <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} required className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Price:</label>
+          <label className="block text-gray-700 font-bold mb-2">Giá:</label>
           <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} required className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Quantity:</label>
+          <label className="block text-gray-700 font-bold mb-2">Số lượng:</label>
           <input type="number" value={quantity} onChange={(e) => setQuantity(e.target.value)} required className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2">Description:</label>
+          <label className="block text-gray-700 font-bold mb-2">Mô tả:</label>
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} required className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" />
         </div>
 
