@@ -75,12 +75,12 @@ cartRouter
         if (book.quantity === 0) {
           res.statusCode = 400;
           res.setHeader("Content-Type", "application/json");
-          res.json({ message: "Out of stock!" });
+          res.json({ message: "Sách này hiện đã tạm hết hàng trong kho!" });
           return;
         } else if (book.quantity < req.body.quantity) {
           res.statusCode = 400;
           res.setHeader("Content-Type", "application/json");
-          res.json({ message: "Not enough books in stock!" });
+          res.json({ message: "Số lượng sách trong kho không đủ đáp ứng!" });
           return;
         }
 
@@ -122,7 +122,7 @@ cartRouter
         if (!cart) {
           res.statusCode = 404;
           res.setHeader("Content-Type", "application/json");
-          res.json({ message: "Product not found in cart!" });
+          res.json({ message: "Không tìm thấy sản phẩm trong giỏ hàng!" });
           return;
         }
         //delete cart item
@@ -132,7 +132,7 @@ cartRouter
         });
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
-        res.json({ message: "Product removed from cart!" });
+        res.json({ message: "Đã xóa sản phẩm khỏi giỏ hàng thành công!" });
       } catch (err) {
         next(err);
       }
@@ -151,7 +151,7 @@ cartRouter
         if (!cart) {
           res.statusCode = 404;
           res.setHeader("Content-Type", "application/json");
-          res.json({ message: "Cart not found!" });
+          res.json({ message: "Không tìm thấy giỏ hàng!" });
           return;
         }
         //delete cart item
@@ -159,7 +159,7 @@ cartRouter
           .then((result) => {
             res.statusCode = 200;
             res.setHeader("Content-Type", "application/json");
-            res.json({ message: "Product removed from cart!" });
+            res.json({ message: "Đã xóa toàn bộ sản phẩm khỏi giỏ hàng!" });
           })
           .catch((err) => next(err));
       } catch (err) {
@@ -182,28 +182,25 @@ cartRouter
         if (!cart) {
           res.statusCode = 404;
           res.setHeader("Content-Type", "application/json");
-          res.json({ message: "Product not found in cart!" });
+          res.json({ message: "Không tìm thấy sản phẩm trong giỏ hàng!" });
           return;
         }
         // Check if there are enough books in stock
         const book = await Book.findById(req.params.productId);
-        if (book.quantity === 0) {
+        if (!book || book.quantity === 0) {
           res.statusCode = 400;
           res.setHeader("Content-Type", "application/json");
-          res.json({ message: "Out of stock!" });
+          res.json({ message: "Sản phẩm đã hết hàng!" });
           return;
-        } else if (book.quantity < 1) {
+        } else if (cart.quantity + 1 > book.quantity) {
           res.statusCode = 400;
           res.setHeader("Content-Type", "application/json");
-          res.json({ message: "Not enough books in stock!" });
+          res.json({ message: "Số lượng trong kho không đủ!" });
           return;
         }
         //update cart item
         cart.quantity += 1;
         cart.total_price += cart.price;
-        await Book.findByIdAndUpdate(req.params.productId, {
-          $inc: { quantity: -1 },
-        });
         await cart.save();
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
@@ -231,18 +228,15 @@ cartRouter
           res.json({ message: "Product not found in cart!" });
           return;
         }
-        if (cart.quantity === 1) {
+        if (cart.quantity <= 1) {
           res.statusCode = 400;
           res.setHeader("Content-Type", "application/json");
-          res.json({ message: "Quantity cannot be less than 1!" });
+          res.json({ message: "Số lượng không thể nhỏ hơn 1!" });
           return;
         }
         //update cart item
         cart.quantity -= 1;
         cart.total_price -= cart.price;
-        await Book.findByIdAndUpdate(req.params.productId, {
-          $inc: { quantity: 1 },
-        });
         await cart.save();
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");

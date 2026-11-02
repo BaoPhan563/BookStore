@@ -128,13 +128,17 @@ router
   .options(cors.corsWithOptions, (req, res) => {
     res.sendStatus(200);
   })
-  .get("/logout", cors.cors, (req, res) => {
+  .get("/logout", cors.cors, (req, res, next) => {
     if (req.session) {
-      req.session.destroy;
-      res.clearCookie("session-id");
-      res.setHeader("Content-Type", "application/json");
-      res.json({
-        status: "You are successfully logged out!",
+      req.session.destroy((err) => {
+        if (err) {
+          return next(err);
+        }
+        res.clearCookie("session-id");
+        res.setHeader("Content-Type", "application/json");
+        res.json({
+          status: "You are successfully logged out!",
+        });
       });
     } else {
       var err = new Error("You are not login!");

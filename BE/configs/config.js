@@ -4,11 +4,11 @@ module.exports = {
   secretKey: process.env.SECRET_KEY,
   url: process.env.DATABASE_URL,
   // VNPay
-  vnp_TmnCode: process.env.VNP_TMNCODE,
-  vnp_HashSecret: process.env.VNP_HASHSECRET,
+  vnp_TmnCode: process.env.VNP_TMN_CODE || process.env.VNP_TMNCODE,
+  vnp_HashSecret: process.env.VNP_HASH_SECRET || process.env.VNP_HASHSECRET,
   vnp_Url: process.env.VNP_URL,
   vnp_Api: process.env.VNP_API,
-  vnp_ReturnUrl: process.env.VNP_RETURNURL,
+  vnp_ReturnUrl: process.env.VNP_RETURN_URL || process.env.VNP_RETURNURL,
   // Google
   web: {
     client_id: process.env.GOOGLE_CLIENT_ID,

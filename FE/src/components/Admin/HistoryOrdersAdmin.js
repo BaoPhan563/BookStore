@@ -16,7 +16,7 @@ const HistoryOrdersAdmin = () => {
         setOrders(response.data);
       } catch (error) {
         console.error('Error fetching orders:', error);
-        toast.error('Error fetching orders');
+        toast.error('Không thể tải danh sách đơn hàng. Vui lòng thử lại!');
       }
     };
 

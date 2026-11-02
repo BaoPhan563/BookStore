@@ -31,7 +31,7 @@ const AddBook = () => {
         }
       });
       console.log('Book added:', response.data);
-      toast.success('Book added successfully!');
+      toast.success('Thêm sách mới vào hệ thống thành công!');
       // Reset form fields here if needed
       setTitle('');
       setAuthor('');
@@ -42,7 +42,7 @@ const AddBook = () => {
       setDescription('');
     } catch (error) {
       console.error('Error adding book:', error);
-      toast.error('Failed to add book. Please try again.');
+      toast.error(error.response?.data?.message || 'Thêm sách mới thất bại. Vui lòng kiểm tra lại thông tin!');
     }
   };
 

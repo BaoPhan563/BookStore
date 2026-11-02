@@ -1,47 +1,74 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../../axiosConfig';
 import { toast, ToastContainer } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
+
 const ResetPassword = () => {
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [step, setStep] = useState(1);
+    const [submitting, setSubmitting] = useState(false);
     const navigate = useNavigate();
+
     const handleEmailSubmit = async (e) => {
         e.preventDefault();
+        const cleanEmail = email.trim();
+        if (!cleanEmail) {
+            toast.warning('Vui lòng nhập địa chỉ email của bạn.');
+            return;
+        }
+
+        setSubmitting(true);
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/forgotPassword`, { email });
-            toast.success('OTP đã được gửi đến email của bạn');
+            await axios.post('/users/forgotPassword', { email: cleanEmail });
+            toast.success('Mã xác thực OTP đã được gửi về email của bạn. Vui lòng kiểm tra hộp thư!');
             setTimeout(() => {
                 setStep(2);
-            }, 2000);
+            }, 1200);
         } catch (error) {
             console.error('Error sending email', error);
-            toast.error('Email không tồn tại hoặc chưa được đăng ký !!!');
+            if (error.response?.status === 404) {
+                toast.error('Địa chỉ email này chưa được đăng ký trong hệ thống.');
+            } else {
+                toast.error(error.response?.data?.message || 'Không thể gửi mã OTP lúc này. Vui lòng thử lại sau!');
+            }
+        } finally {
+            setSubmitting(false);
         }
     };
 
     const handleResetSubmit = async (e) => {
         e.preventDefault();
+        if (!otp.trim()) {
+            toast.warning('Vui lòng nhập mã OTP đã nhận.');
+            return;
+        }
+        if (!newPassword || newPassword.length < 6) {
+            toast.warning('Mật khẩu mới phải có tối thiểu 6 ký tự.');
+            return;
+        }
+
+        setSubmitting(true);
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/users/resetPassword`, {
-                email,
-                otp,
+            await axios.post('/users/resetPassword', {
+                email: email.trim(),
+                otp: otp.trim(),
                 newPassword,
             });
 
-            //setStep(1);
             setEmail('');
             setOtp('');
             setNewPassword('');
-            toast.success('Mật khẩu đã được đặt lại thành công');
+            toast.success('Đặt lại mật khẩu thành công! Đang chuyển hướng về đăng nhập...');
             setTimeout(() => {
                 navigate('/login');
-            }, 5000);
+            }, 1500);
         } catch (error) {
             console.error('Error resetting password', error);
-            toast.error('OTP không hợp lệ hoặc đã hết hạn !!!');
+            toast.error('Mã OTP không chính xác hoặc đã hết hạn hiệu lực.');
+        } finally {
+            setSubmitting(false);
         }
     };
 

@@ -1,9 +1,8 @@
-import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import axios from "../axiosConfig";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { getGoogleToken, getToken } from "./Login/app/static";
+import { AiOutlineCheck, AiOutlineClose, AiOutlineHome, AiOutlineHistory } from "react-icons/ai";
 
 const PaymentReturn = () => {
   const navigate = useNavigate();
@@ -14,31 +13,17 @@ const PaymentReturn = () => {
   useEffect(() => {
     const token = getToken() || getGoogleToken();
     axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/paymentReturn/vnpay_return${location.search}`,
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        //   withCredentials: true,
-        // },
-      )
+      .get(`/paymentReturn/vnpay_return${location.search}`)
       .then((response) => {
         setResult(response.data);
         setLoading(false);
         if (response.data.success) {
-          // Xóa giỏ hàng sau khi thanh toán thành công
+          // Clear cart on successful VNPay checkout
           axios
-            .delete(`${process.env.REACT_APP_API_URL}/api/cart/deleteCart`, {
+            .delete(`/cart/deleteCart`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
-              withCredentials: true,
-            })
-            .then(() => {
-              console.log(
-                "Giỏ hàng đã được xóa sau khi thanh toán thành công.",
-              );
             })
             .catch((error) => {
               console.error("Lỗi khi xóa giỏ hàng:", error);
@@ -47,54 +32,104 @@ const PaymentReturn = () => {
       })
       .catch((error) => {
         console.error("Error fetching payment result:", error);
+        setResult({
+          success: false,
+          message: "Không thể xác minh kết quả thanh toán từ VNPay",
+        });
         setLoading(false);
       });
   }, [location.search]);
 
-  const goHome = () => {
-    navigate("/");
-  };
+  if (loading) {
+    return (
+      <div className="min-h-[80vh] flex items-center justify-center px-4 bg-slate-50/50">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p className="text-sm font-semibold text-slate-600">Đang đối soát kết quả giao dịch VNPay...</p>
+        </div>
+      </div>
+    );
+  }
 
-  console.log("Result:", result);
+  const isSuccess = result?.success;
 
   return (
-    <div className="container min-h-screen mx-auto px-4 py-8 flex justify-center items-center">
-      <div className="max-w-md bg-white text-gray-800 shadow-lg rounded-lg overflow-hidden">
-        <div className="p-8">
-          <div className="flex items-center justify-center mb-6">
-            <img
-              className="w-16 h-16 mr-4"
-              src={
-                result?.success
-                  ? process.env.PUBLIC_URL + "/images/success.png"
-                  : process.env.PUBLIC_URL + "/images/failure.png"
-              }
-              alt="Payment result icon"
-            />
-            <p className="text-2xl font-bold text-green-500">
-              {result?.message}
-            </p>
-          </div>
-          <p className="text-lg mb-4 font-semibold">
-            {result?.success
-              ? `Mã giao dịch: ${result.data.transactionNo}`
-              : `Mã lỗi: ${result?.code || "Không xác định"}`}
-          </p>
-          <p className="text-lg mb-4 font-semibold">
-            {result?.success
-              ? `Số tiền: ${(result.data.amount / 100).toLocaleString("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                })}`
-              : "Vui lòng thử lại hoặc liên hệ hỗ trợ nếu vấn đề vẫn tiếp diễn."}
-          </p>
-          <button
-            onClick={goHome}
-            className="block w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Về trang chủ
-          </button>
+    <div className="min-h-[80vh] flex items-center justify-center px-4 py-16 bg-slate-50/50">
+      <div className="max-w-md w-full bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-lg text-center animate-in fade-in zoom-in-95 duration-300">
+        
+        {/* Status Icon */}
+        <div
+          className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xs ring-8 ${
+            isSuccess
+              ? "bg-emerald-100 text-emerald-600 ring-emerald-50"
+              : "bg-red-100 text-red-600 ring-red-50"
+          }`}
+        >
+          {isSuccess ? (
+            <AiOutlineCheck className="w-10 h-10 stroke-[3]" />
+          ) : (
+            <AiOutlineClose className="w-10 h-10 stroke-[2.5]" />
+          )}
         </div>
+
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-serif mb-2">
+          {isSuccess ? "Thanh toán thành công!" : "Thanh toán thất bại"}
+        </h1>
+        
+        <p className="text-sm text-slate-500 mb-6">
+          {result?.message || (isSuccess ? "Giao dịch đã được ghi nhận." : "Đã có lỗi xảy ra.")}
+        </p>
+
+        {/* Transaction Summary Card */}
+        <div className="bg-slate-50 rounded-2xl p-4 text-xs text-slate-700 mb-8 border border-slate-100 space-y-2 text-left">
+          {result?.data?.transactionNo && (
+            <div className="flex justify-between">
+              <span className="text-slate-400">Mã giao dịch:</span>
+              <span className="font-bold text-slate-800">{result.data.transactionNo}</span>
+            </div>
+          )}
+          {result?.data?.amount && (
+            <div className="flex justify-between">
+              <span className="text-slate-400">Số tiền:</span>
+              <span className="font-bold text-orange-600">
+                {(Number(result.data.amount) / 100).toLocaleString("vi-VN")}₫
+              </span>
+            </div>
+          )}
+          <div className="flex justify-between">
+            <span className="text-slate-400">Cổng thanh toán:</span>
+            <span className="font-semibold text-slate-800">VNPay Sandbox</span>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="space-y-3">
+          {isSuccess ? (
+            <Link
+              to="/transaction"
+              className="w-full py-3.5 px-5 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white font-bold text-sm rounded-xl shadow-md shadow-orange-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2"
+            >
+              <AiOutlineHistory className="w-4 h-4" />
+              <span>Xem lịch sử đơn hàng</span>
+            </Link>
+          ) : (
+            <Link
+              to="/payment"
+              className="w-full py-3.5 px-5 bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-700 hover:to-amber-600 text-white font-bold text-sm rounded-xl shadow-md shadow-orange-500/20 active:scale-98 transition-all flex items-center justify-center space-x-2"
+            >
+              <span>Thử thanh toán lại</span>
+            </Link>
+          )}
+
+          <Link
+            to="/"
+            className="w-full py-3 px-5 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm rounded-xl border border-slate-200 transition-all flex items-center justify-center space-x-2"
+          >
+            <AiOutlineHome className="w-4 h-4" />
+            <span>Về trang chủ</span>
+          </Link>
+        </div>
+
       </div>
     </div>
   );

@@ -34,6 +34,9 @@ import HistoryOrdersAdmin from "./components/Admin/HistoryOrdersAdmin";
 
 import "../src/index.css";
 import PaymentReturn from "./components/PaymentReturn";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -43,46 +46,50 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar onSearch={handleSearch} />
-      <Routes>
-        <Route path="/" element={<BookList searchTerm={searchTerm} />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        {/* //<Route path="/dashboard" element={<AdminDashboard />} /> */}
-        <Route
-          path="/dashboard"
-          element={<PrivateRoute element={<AdminDashboard />} adminOnly />}
-        />
-        <Route exact path="/booklistadmin" element={<BookListAdmin />} />
-        <Route path="/addbook" element={<AddBook />} />
-        <Route path="/revenue" element={<Revenue />} />
-        <Route path="/books/:id" element={<BookDetail />} />
-        <Route path="/edit/:id" element={<EditBook />} />
-        <Route
-          path="/books/:id/upload/many"
-          element={<UploadMultipleImages />}
-        />
-        <Route path="/book/:id" element={<BookDetailUser />} />
-        <Route path="/history" element={<HistoryOrdersAdmin />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route
-          path="/change-password"
-          element={<PrivateRoute element={<ChangePassword />} googleBlock />}
-        />
-        <Route path="/not-found" element={<NotFound />} />
-        <Route path="/transaction" element={<HistoryPayment />} />
-        <Route path="/payment/vnpay_return" element={<PaymentReturn />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/payment/success" element={<PaymentSuccess />} />
-        <Route path="/payment/cancel" element={<PaymentFail />} />
-      </Routes>
-      <Footer />
-      <Analytics />
-      <SpeedInsights />
+      <div className="flex flex-col min-h-screen bg-slate-50/50">
+        <ToastContainer position="top-right" autoClose={3000} />
+        <Navbar onSearch={handleSearch} />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<BookList searchTerm={searchTerm} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route
+              path="/dashboard"
+              element={<PrivateRoute element={<AdminDashboard />} adminOnly />}
+            />
+            <Route exact path="/booklistadmin" element={<BookListAdmin />} />
+            <Route path="/addbook" element={<AddBook />} />
+            <Route path="/revenue" element={<Revenue />} />
+            <Route path="/books/:id" element={<BookDetail />} />
+            <Route path="/edit/:id" element={<EditBook />} />
+            <Route
+              path="/books/:id/upload/many"
+              element={<UploadMultipleImages />}
+            />
+            <Route path="/book/:id" element={<BookDetailUser />} />
+            <Route path="/history" element={<HistoryOrdersAdmin />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route
+              path="/change-password"
+              element={<PrivateRoute element={<ChangePassword />} googleBlock />}
+            />
+            <Route path="/transaction" element={<HistoryPayment />} />
+            <Route path="/payment/vnpay_return" element={<PaymentReturn />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/payment" element={<Payment />} />
+            <Route path="/payment/success" element={<PaymentSuccess />} />
+            <Route path="/payment/cancel" element={<PaymentFail />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+        <Analytics />
+        <SpeedInsights />
+      </div>
     </Router>
   );
 };
