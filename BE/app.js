@@ -31,8 +31,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session);
-// app.use(cors({ origin: "http://localhost:3001", credentials: true }));
-app.use(cors({ origin: process.env.DEPLOY_API_URL, credentials: true }));
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:3001",
+  process.env.DEPLOY_API_URL,
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(null, true); // Permissive for other dev or vercel origins
+      }
+    },
+    credentials: true,
+  })
+);
 app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/books", bookRouter);

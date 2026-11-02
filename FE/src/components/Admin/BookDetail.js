@@ -101,10 +101,10 @@ const BookDetail = ({ books }) => {
             });
             setBook(response.data);
             console.log(`Book status set to ${status}`);
-            toast.success(`Trạng thái sách đã được cập nhật thành ${status}`);
+            toast.success(`Đã cập nhật trạng thái sách thành "${status}" thành công!`);
         } catch (error) {
             console.error(`Error setting book status to ${status}:`, error);
-            toast.error('Lỗi khi cập nhật trạng thái sách');
+            toast.error('Không thể cập nhật trạng thái sách. Vui lòng thử lại!');
         }
     };
 

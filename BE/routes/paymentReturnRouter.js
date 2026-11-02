@@ -79,11 +79,11 @@ paymentReturn
       } else {
         // Thanh toán thất bại tại VNPay
         await Payment.findOneAndUpdate(
-          { paymentToken: orderId },
+          { paymentToken: paymentToken },
           { payment_status: "Cancel" },
         );
         await Order.findOneAndUpdate(
-          { paymentToken: orderId },
+          { paymentToken: paymentToken },
           { order_status: "Fail" },
         );
       }

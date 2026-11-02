@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../../axiosConfig';
-import { getToken } from '../Login/app/static'; // Adjust the import path as necessary
+import { getToken } from '../Login/app/static';
+import { toast } from 'react-toastify';
+
 const EditBook = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const EditBook = () => {
     const fetchBookDetail = async () => {
       try {
         const token = getToken();
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/books/${id}`, {
+        const response = await axios.get(`/books/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -27,7 +29,7 @@ const EditBook = () => {
         setBook(response.data);
       } catch (error) {
         console.error('Error fetching book details:', error);
-        // Handle error (e.g., show error message)
+        toast.error('Không thể tải thông tin chi tiết của sách.');
       }
     };
 
@@ -43,15 +45,16 @@ const EditBook = () => {
     e.preventDefault();
     try {
       const token = getToken();
-      await axios.put(`${process.env.REACT_APP_API_URL}/api/books/${id}`, book, {
+      await axios.put(`/books/${id}`, book, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      navigate(`${process.env.REACT_APP_API_URL}/api/books/${id}`);
+      toast.success('Cập nhật thông tin sách thành công!');
+      navigate(`/books/${id}`);
     } catch (error) {
       console.error('Error updating book:', error);
-      // Handle error (e.g., show error message)
+      toast.error(error.response?.data?.message || 'Cập nhật sách thất bại. Vui lòng thử lại!');
     }
   };
 

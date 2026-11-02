@@ -31,12 +31,16 @@ paymentRouter
         });
         const allDetail = await Promise.all(listBook);
 
+        // Validate books
+        for (let i = 0; i < allDetail.length; i++) {
+          if (!allDetail[i]) {
+            return res.status(400).json({ message: "Sách không tồn tại trong hệ thống" });
+          }
+        }
+
         // Create items array with book details
         const items = order_details.map((detail, index) => {
           const book = allDetail[index];
-          if (!book) {
-            res.status(401).json({ message: "Book not found" });
-          }
           return {
             name: book.title,
             sku: detail.book, // Using bookID as SKU
@@ -127,46 +131,46 @@ paymentRouter
   .get("/success", cors.cors, async function (req, res, next) {
     try {
       let paymentToken = req.query.token;
+      const redirectBase = process.env.DEPLOY_API_URL || "http://localhost:3001";
 
-      console.log(paymentToken);
-
-      const payment = Payment.findOne({ paymentToken: paymentToken });
+      const payment = await Payment.findOne({ paymentToken: paymentToken });
       if (!payment) {
-        res.status(401).json({ message: "Payment not found" });
-      } else {
-        await Payment.findOneAndUpdate(
-          { paymentToken: paymentToken },
-          { payment_status: "Success" },
-        );
-
-        const order = await Order.findOneAndUpdate(
-          { paymentToken: paymentToken },
-          { order_status: "Success" },
-        );
-
-        if (!order) {
-          res.status(401).json({ message: "Order not found" });
-        }
-
-        for (let i of order.order_details) {
-          try {
-            await Inventory.create({
-              book: i.book,
-              quantity: i.order_quantity,
-              transaction_type: "Sell",
-            });
-
-            // Update the quantity of the book
-            await Book.findByIdAndUpdate(i.book, {
-              $inc: { quantity: -i.order_quantity },
-            });
-          } catch (err) {
-            next(err);
-          }
-        }
-
-        res.status(200).redirect("http://localhost:3001/payment/success");
+        return res.status(404).json({ message: "Payment not found" });
       }
+
+      await Payment.findOneAndUpdate(
+        { paymentToken: paymentToken },
+        { payment_status: "Success" }
+      );
+
+      const order = await Order.findOneAndUpdate(
+        { paymentToken: paymentToken },
+        { order_status: "Success" },
+        { new: true }
+      );
+
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      for (let i of order.order_details) {
+        try {
+          await Inventory.create({
+            book: i.book,
+            quantity: i.order_quantity,
+            transaction_type: "Sell",
+          });
+
+          // Update the quantity of the book
+          await Book.findByIdAndUpdate(i.book, {
+            $inc: { quantity: -i.order_quantity },
+          });
+        } catch (err) {
+          console.error("Inventory update error:", err);
+        }
+      }
+
+      res.redirect(`${redirectBase}/payment/success`);
     } catch (err) {
       next(err);
     }
@@ -179,37 +183,24 @@ paymentRouter
   .get("/cancel", cors.cors, async function (req, res, next) {
     try {
       let paymentToken = req.query.token;
+      const redirectBase = process.env.DEPLOY_API_URL || "http://localhost:3001";
 
-      console.log(paymentToken);
-
-      const payment = Payment.findOne({ paymentToken: paymentToken });
+      const payment = await Payment.findOne({ paymentToken: paymentToken });
       if (!payment) {
-        res.status(401).json({ message: "Payment not found" });
-      } else {
-        await Payment.findOneAndUpdate(
-          { paymentToken: paymentToken },
-          { payment_status: "Cancel" },
-        );
-
-        const order = await Order.findOneAndUpdate(
-          { paymentToken: paymentToken },
-          { order_status: "Fail" },
-        );
-
-        if (!order) {
-          res.status(401).json({ message: "Order not found" });
-        }
-
-        //tra sach ve kho
-        // for (let detail of order.order_details) {
-        //   await Book.findOneAndUpdate(
-        //     { _id: detail.book },
-        //     { $inc: { quantity: detail.order_quantity } }
-        //   );
-        // }
-        console.log(order);
-        res.status(200).redirect("http://localhost:3001/payment/cancel");
+        return res.status(404).json({ message: "Payment not found" });
       }
+
+      await Payment.findOneAndUpdate(
+        { paymentToken: paymentToken },
+        { payment_status: "Cancel" }
+      );
+
+      await Order.findOneAndUpdate(
+        { paymentToken: paymentToken },
+        { order_status: "Fail" }
+      );
+
+      res.redirect(`${redirectBase}/payment/cancel`);
     } catch (err) {
       next(err);
     }

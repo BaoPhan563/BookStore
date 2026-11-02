@@ -40,7 +40,8 @@ orderRouter.get(
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         res.json(order);
-      });
+      })
+      .catch((err) => next(err));
   }
 );
 
@@ -54,7 +55,7 @@ orderRouter.post(
     Order.findByIdAndUpdate(
       req.params.orderId,
       {
-        $set: { status: req.body.status },
+        $set: { order_status: req.body.order_status || req.body.status },
       },
       { new: true }
     )

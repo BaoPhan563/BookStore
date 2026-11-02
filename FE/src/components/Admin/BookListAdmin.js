@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from '../../axiosConfig';
 import { getToken } from '../Login/app/static';
 import ConfirmationModal from './ConfirmationModal';
+import { toast } from 'react-toastify';
 
 const BookListAdmin = () => {
   const [books, setBooks] = useState([]);
@@ -31,26 +32,28 @@ const BookListAdmin = () => {
 
   const handleDeleteAllBooks = async () => {
     setShowDeleteConfirmation(true);
-    setDeleteMessage('Are you sure you want to delete all books?');
+    setDeleteMessage('Bạn có chắc chắn muốn xóa tất cả sách khỏi hệ thống?');
   };
 
   const handleDeleteBook = async (bookId, bookTitle) => {
     setShowDeleteConfirmation(true);
     setBookToDelete(bookId);
-    setDeleteMessage(`Are you sure you want to delete book "${bookTitle}"?`);
+    setDeleteMessage(`Bạn có chắc chắn muốn xóa cuốn sách "${bookTitle}" không?`);
   };
 
   const confirmDeleteAllBooks = async () => {
     try {
       const token = getToken();
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/books`, {
+      await axios.delete(`/books`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      toast.success('Đã xóa tất cả sách thành công!');
       fetchBooks();
     } catch (error) {
       console.error('Error deleting all books:', error);
+      toast.error('Không thể xóa toàn bộ sách. Vui lòng thử lại!');
     } finally {
       setShowDeleteConfirmation(false);
       setDeleteMessage('');
@@ -60,14 +63,16 @@ const BookListAdmin = () => {
   const confirmDeleteBook = async () => {
     try {
       const token = getToken();
-      await axios.delete(`${process.env.REACT_APP_API_URL}/api/books/${bookToDelete}`, {
+      await axios.delete(`/books/${bookToDelete}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      toast.success('Đã xóa sách khỏi hệ thống thành công!');
       fetchBooks();
     } catch (error) {
       console.error(`Error deleting book ${bookToDelete}:`, error);
+      toast.error('Không thể xóa cuốn sách này. Vui lòng thử lại!');
     } finally {
       setShowDeleteConfirmation(false);
       setDeleteMessage('');

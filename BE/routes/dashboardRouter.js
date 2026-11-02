@@ -148,6 +148,8 @@ dashboardRouter
     "/revenue/:month",
     //Show revenue by month
     cors.cors,
+    authenticate.verifyUser,
+    authenticate.verifyAdmin,
     (req, res, next) => {
       let startOfMonth = new Date(req.params.month);
       startOfMonth.setDate(1);

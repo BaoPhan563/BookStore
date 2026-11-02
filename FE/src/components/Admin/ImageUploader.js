@@ -11,11 +11,11 @@ const ImageUploader = ({ bookId }) => {
     const files = Array.from(event.target.files);
     try {
       await uploadMultipleImages(bookId, files);
-      toast.success('Ảnh đã được tải lên thành công'); // Thông báo khi tải ảnh thành công
-      // window.location.reload(); // Tải lại trang sau khi tải ảnh thành công
+      toast.success('Tải ảnh sách lên thành công!');
+      // window.location.reload();
     } catch (error) {
       setError(error.message);
-      toast.error(`Lỗi: ${error.message}`); // Thông báo khi có lỗi xảy ra
+      toast.error(error.response?.data?.message || 'Tải ảnh lên thất bại. Vui lòng kiểm tra lại file ảnh!');
     }
   };
 

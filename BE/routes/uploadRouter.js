@@ -26,24 +26,25 @@ const upload = multer({ storage: storage });
 
 // Function to upload image to Firebase Storage and return public URL
 async function uploadImageToStorage(file) {
-  const blob = bucket.file(file.originalname);
+  const safeName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}_${(file.originalname || "image.jpg").replace(/[^a-zA-Z0-9._-]/g, "_")}`;
+  const blob = bucket.file(safeName);
   const blobWriter = blob.createWriteStream({
     metadata: {
       contentType: file.mimetype,
     },
   });
-  blobWriter.on("error", (err) => {
-    console.log(err);
-  });
-  blobWriter.on("finish", async () => {
-    await blob.makePublic();
-  });
-  blobWriter.end(file.buffer);
 
-  // Wait for the blob upload to complete
   await new Promise((resolve, reject) => {
-    blobWriter.on("finish", resolve);
+    blobWriter.on("finish", async () => {
+      try {
+        await blob.makePublic();
+        resolve();
+      } catch (err) {
+        resolve(); // Continue if bucket uses uniform bucket-level access
+      }
+    });
     blobWriter.on("error", reject);
+    blobWriter.end(file.buffer);
   });
 
   // Return the public URL

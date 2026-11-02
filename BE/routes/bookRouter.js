@@ -164,16 +164,14 @@ bookRouter
   })
   .get(cors.cors, (req, res, next) => {
     //find all books by price
-    Books.find({ price: { $gte: req.params.min, $lte: req.params.max } })
+    const min = Number(req.params.min) || 0;
+    const max = Number(req.params.max) || Number.MAX_SAFE_INTEGER;
+    Books.find({ price: { $gte: min, $lte: max } })
       .populate("comments.author", "fullname _id")
-      .populate("imageurls.imageUrl") //gte: greater than or equal, lte: less than or equal
+      .populate("imageurls.imageUrl")
       .then(
         (books) => {
-          if (books.length == 0) {
-            res.json({ message: "No books found" });
-          } else {
-            res.json(books);
-          }
+          res.json(books || []);
         },
         (err) => next(err)
       )
@@ -184,16 +182,13 @@ bookRouter
   bookRouter.route('/rating/:min')
   .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
   .get(cors.cors, (req, res, next) => {
-      Books.find({ total_rating: { $gte: req.params.min, $lte: 5 } })
+      const min = Number(req.params.min) || 0;
+      Books.find({ total_rating: { $gte: min, $lte: 5 } })
           .populate('comments.author', 'fullname _id')
           .populate('imageurls.imageUrl')
           .then(
               (books) => {
-                  if (books.length == 0) {
-                      res.json({ message: 'No books found' });
-                  } else {
-                      res.json(books);
-                  }
+                  res.json(books || []);
               },
               (err) => next(err)
           )
@@ -213,11 +208,7 @@ bookRouter
       .populate("imageurls.imageUrl")
       .then(
         (books) => {
-          if (books.length == 0) {
-            res.json({ message: "No books found" });
-          } else {
-            res.json(books);
-          }
+          res.json(books || []);
         },
         (err) => next(err)
       )
@@ -405,68 +396,56 @@ bookRouter
       )
       .catch((err) => next(err));
   })
-  .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-    var comment = false;
-    Order.findOne({ user: req.user._id, order_status: "Success" }).then({
-      //check if the user has ordered the book
-      if(order) {
-        for (let i = 0; i < order.order_details.length; i++) {
-          if (order.order_details[i].book.toString() === req.params.bookId) {
-            comment = true;
-            break;
-          }
-        }
-      },
-    });
+  .post(cors.corsWithOptions, authenticate.verifyUser, async (req, res, next) => {
+    try {
+      const book = await Books.findById(req.params.bookId);
+      if (!book) {
+        return res.status(404).json({ message: "Book " + req.params.bookId + " not found" });
+      }
 
-    Books.findById(req.params.bookId).then(
-      (book) => {
-        if (book != null) {
-          req.body.author = req.user._id; //add the author to the comment
-          for (let i = 0; i < book.comments.length; i++) {
-            if (comment === false) {
-              res.statusCode = 403;
-              res.setHeader("Content-Type", "application/json");
-              res.json({ message: "You have not ordered this book" });
-              return;
-            } else if (
-              book.comments[i].author.toString() === req.user._id.toString()
-            ) {
-              //check if the user has already commented
-              res.statusCode = 403;
-              res.setHeader("Content-Type", "application/json");
-              res.json({ message: "You have already commented" });
-              return;
-            }
-          }
-          book.comments.push(req.body); //push the comment to the comments array
+      // Check if user has ordered the book in a successful order
+      const order = await Order.findOne({
+        user: req.user._id,
+        order_status: "Success",
+        "order_details.book": req.params.bookId,
+      });
 
-          let total = 0;
-          for (let i = 0; i < book.comments.length; i++) {
-            total += book.comments[i].rating;
-          }
-          book.total_rating = total / book.comments.length; //calculate the average rating
+      if (!order && !req.user.admin) {
+        return res.status(403).json({ message: "You have not ordered this book" });
+      }
 
-          book.save().then(
-            (book) => {
-              Books.findById(book._id)
-                .populate("comments.author", "fullname _id")
-                .then((book) => {
-                  res.statusCode = 200;
-                  res.setHeader("Content-Type", "application/json");
-                  res.json(book);
-                });
-            },
-            (err) => next(err)
-          );
-        } else {
-          err = new Error("Book " + req.params.bookId + " not found");
-          err.status = 404;
-          return next(err);
-        }
-      },
-      (err) => next(err)
-    );
+      // Check if user already commented
+      const alreadyCommented = book.comments.some(
+        (c) => c.author && c.author.toString() === req.user._id.toString()
+      );
+      if (alreadyCommented) {
+        return res.status(403).json({ message: "You have already commented" });
+      }
+
+      const newComment = {
+        rating: Number(req.body.rating) || 5,
+        comment: req.body.comment,
+        author: req.user._id,
+      };
+
+      book.comments.push(newComment);
+
+      const total = book.comments.reduce((sum, c) => sum + (c.rating || 0), 0);
+      book.total_rating = total / book.comments.length;
+
+      await book.save();
+
+      const populatedBook = await Books.findById(book._id).populate(
+        "comments.author",
+        "fullname _id"
+      );
+
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+      res.json(populatedBook);
+    } catch (err) {
+      next(err);
+    }
   })
   .put(cors.corsWithOptions, (req, res, next) => {
     res.statusCode = 403;

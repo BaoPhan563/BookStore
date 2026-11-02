@@ -1,44 +1,199 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { BiBookBookmark } from 'react-icons/bi';
+import {
+  AiFillFacebook,
+  AiFillInstagram,
+  AiFillYoutube,
+  AiOutlineMail,
+  AiOutlinePhone,
+  AiOutlineEnvironment,
+} from 'react-icons/ai';
+import { FiTruck, FiShield, FiRotateCcw, FiHeadphones } from 'react-icons/fi';
 
 const Footer = () => {
-    return (
-        <footer className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white shadow-md py-8 font-times mt-8">
-            <div className="container mx-auto px-4">
-                <div className="flex justify-between items-center mb-6">
-                    <div>
-                        <h2 className="text-2xl font-semibold">FBStore</h2>
-                        <p className="text-white">Cửa hàng sách trực tuyến yêu thích của bạn</p>
-                    </div>
-                    <div className="flex space-x-6">
-                        <Link to="/" className="hover:text-blue-300">Trang chủ</Link>
-                        <Link to="/about" className="hover:text-blue-300">Giới thiệu</Link>
-                        <Link to="/contact" className="hover:text-blue-300">Liên hệ</Link>
-                    </div>
-                </div>
-                <div className="flex justify-between items-center border-t border-gray-700 pt-6">
-                    <p className="text-white">&copy; 2024 Bản quyền thuộc về FBStore.</p>
-                    <div className="flex space-x-4">
-                        <a href="https://facebook.com" className="hover:text-blue-500">
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M22.676 0H1.326C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.326 24h11.495v-9.294H9.693v-3.63h3.128V8.41c0-3.1 1.894-4.79 4.659-4.79 1.325 0 2.462.099 2.794.143v3.24l-1.917.001c-1.503 0-1.794.715-1.794 1.763v2.313h3.588l-.467 3.63h-3.12V24h6.116c.733 0 1.326-.593 1.326-1.326V1.326C24 .593 23.407 0 22.676 0z" />
-                            </svg>
-                        </a>
-                        <a href="https://twitter.com" className="hover:text-blue-500">
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M23.953 4.569c-.885.392-1.83.656-2.825.775 1.014-.607 1.794-1.569 2.163-2.724-.951.565-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.717 0-4.92 2.206-4.92 4.924 0 .388.044.765.127 1.124-4.087-.205-7.717-2.164-10.141-5.144-.423.722-.666 1.561-.666 2.457 0 1.695.863 3.192 2.175 4.07-.802-.026-1.56-.246-2.228-.614v.061c0 2.37 1.685 4.348 3.918 4.794-.411.111-.844.171-1.292.171-.316 0-.623-.03-.923-.086.623 1.943 2.432 3.355 4.575 3.393-1.676 1.315-3.787 2.1-6.078 2.1-.395 0-.786-.023-1.17-.069 2.165 1.387 4.731 2.197 7.498 2.197 8.998 0 13.918-7.456 13.918-13.916 0-.211 0-.422-.015-.632.961-.695 1.797-1.562 2.457-2.549z" />
-                            </svg>
-                        </a>
-                        <a href="https://instagram.com" className="hover:text-pink-500">
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.977.24 2.42.512a4.92 4.92 0 011.758 1.758c.272.443.458 1.25.512 2.42.058 1.267.07 1.646.07 4.851s-.012 3.584-.07 4.85c-.054 1.17-.24 1.977-.512 2.42a4.92 4.92 0 01-1.758 1.758c-.443.272-1.25.458-2.42.512-1.267.058-1.646.07-4.851.07s-3.584-.012-4.85-.07c-1.17-.054-1.977-.24-2.42-.512a4.92 4.92 0 01-1.758-1.758c-.272-.443-.458-1.25-.512-2.42-.058-1.267-.07-1.646-.07-4.851s.012-3.584.07-4.85c.054-1.17.24-1.977.512-2.42a4.92 4.92 0 011.758-1.758c.443-.272 1.25-.458 2.42-.512 1.267-.058 1.646-.07 4.851-.07M12 0C8.741 0 8.332.013 7.053.07 5.776.127 4.797.322 4.028.654a6.573 6.573 0 00-2.385 1.6A6.573 6.573 0 00.654 4.028C.322 4.797.127 5.776.07 7.053.013 8.332 0 8.741 0 12s.013 3.668.07 4.947c.057 1.277.252 2.256.584 3.025a6.573 6.573 0 001.6 2.385 6.573 6.573 0 002.385 1.6c.77.332 1.748.527 3.025.584C8.332 23.987 8.741 24 12 24s3.668-.013 4.947-.07c1.277-.057 2.256-.252 3.025-.584a6.573 6.573 0 002.385-1.6 6.573 6.573 0 001.6-2.385c.332-.77.527-1.748.584-3.025C23.987 15.668 24 15.259 24 12s-.013-3.668-.07-4.947c-.057-1.277-.252-2.256-.584-3.025a6.573 6.573 0 00-1.6-2.385 6.573 6.573 0 00-2.385-1.6c-.77-.332-1.748-.527-3.025-.584C15.668.013 15.259 0 12 0zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a3.999 3.999 0 110-8 3.999 3.999 0 010 8zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+  return (
+    <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+      <div className="container mx-auto px-4 lg:px-8">
+        
+        {/* Top Feature Bar */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pb-12 border-b border-slate-800 text-xs text-slate-400">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-orange-400 shrink-0">
+              <FiTruck className="w-5 h-5" />
             </div>
-        </footer>
-    );
+            <div>
+              <p className="font-bold text-white text-sm">Giao hàng toàn quốc</p>
+              <p>Miễn phí đơn từ 250.000₫</p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-orange-400 shrink-0">
+              <FiRotateCcw className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="font-bold text-white text-sm">Đổi trả dễ dàng</p>
+              <p>Trong vòng 7 ngày miễn phí</p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-orange-400 shrink-0">
+              <FiShield className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="font-bold text-white text-sm">100% Chính hãng</p>
+              <p>Cam kết chất lượng chuẩn</p>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-orange-400 shrink-0">
+              <FiHeadphones className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="font-bold text-white text-sm">Hỗ trợ 24/7</p>
+              <p>Tư vấn chọn sách tận tâm</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Footer Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 py-12">
+          
+          {/* Brand Info */}
+          <div className="lg:col-span-2 space-y-4">
+            <Link to="/" className="flex items-center space-x-2.5">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white">
+                <BiBookBookmark className="w-6 h-6" />
+              </div>
+              <span className="text-2xl font-bold text-white font-serif tracking-tight">
+                FBStore
+              </span>
+            </Link>
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              Cửa hàng sách trực tuyến hàng đầu, nơi hội tụ hàng ngàn tựa sách đặc sắc được tuyển chọn từ các nhà xuất bản uy tín trong và ngoài nước.
+            </p>
+            <div className="space-y-2 text-xs text-slate-400 pt-2">
+              <p className="flex items-center space-x-2">
+                <AiOutlineEnvironment className="w-4 h-4 text-orange-400 shrink-0" />
+                <span>123 Đường Sách, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</span>
+              </p>
+              <p className="flex items-center space-x-2">
+                <AiOutlinePhone className="w-4 h-4 text-orange-400 shrink-0" />
+                <span>Hotline: 1900 6868 (8:00 - 21:00)</span>
+              </p>
+              <p className="flex items-center space-x-2">
+                <AiOutlineMail className="w-4 h-4 text-orange-400 shrink-0" />
+                <span>Email: hotro@fbstore.vn</span>
+              </p>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              Về FBStore
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link to="/about" className="hover:text-orange-400 transition-colors">
+                  Giới thiệu câu chuyện
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-orange-400 transition-colors">
+                  Liên hệ hợp tác
+                </Link>
+              </li>
+              <li>
+                <a href="#about" className="hover:text-orange-400 transition-colors">
+                  Tuyển dụng nhân sự
+                </a>
+              </li>
+              <li>
+                <a href="#about" className="hover:text-orange-400 transition-colors">
+                  Hệ thống nhà sách
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Customer Service */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              Hỗ trợ khách hàng
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a href="#guide" className="hover:text-orange-400 transition-colors">
+                  Hướng dẫn mua hàng
+                </a>
+              </li>
+              <li>
+                <a href="#policy" className="hover:text-orange-400 transition-colors">
+                  Phương thức thanh toán
+                </a>
+              </li>
+              <li>
+                <a href="#shipping" className="hover:text-orange-400 transition-colors">
+                  Chính sách vận chuyển
+                </a>
+              </li>
+              <li>
+                <a href="#privacy" className="hover:text-orange-400 transition-colors">
+                  Chính sách bảo mật
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Newsletter Box */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              Nhận bản tin ưu đãi
+            </h4>
+            <p className="text-xs text-slate-400">
+              Đăng ký để nhận thông báo sách mới phát hành và voucher giảm giá đến 50%.
+            </p>
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-2">
+              <input
+                type="email"
+                placeholder="Nhập email của bạn..."
+                className="w-full px-3.5 py-2.5 bg-slate-800 text-xs rounded-xl border border-slate-700 text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+              />
+              <button
+                type="submit"
+                className="w-full py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs rounded-xl transition-colors"
+              >
+                Đăng ký nhận tin
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+        {/* Bottom Bar: Copyright & Payment Icons */}
+        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <p>&copy; {new Date().getFullYear()} FBStore. Bản quyền thuộc về FBStore Team.</p>
+
+          <div className="flex items-center space-x-4">
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <AiFillFacebook className="w-5 h-5" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <AiFillInstagram className="w-5 h-5" />
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors">
+              <AiFillYoutube className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  );
 };
 
 export default Footer;

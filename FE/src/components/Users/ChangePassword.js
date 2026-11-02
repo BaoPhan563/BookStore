@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { getToken, removeToken } from '../Login/app/static';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const ChangePassword = () => {
     const [formData, setFormData] = useState({
@@ -21,8 +22,23 @@ const ChangePassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!formData.oldPassword) {
+            toast.warning('Vui lòng nhập mật khẩu hiện tại.');
+            return;
+        }
+        if (!formData.newPassword || formData.newPassword.length < 6) {
+            toast.warning('Mật khẩu mới phải có tối thiểu 6 ký tự.');
+            return;
+        }
+        if (formData.oldPassword === formData.newPassword) {
+            toast.warning('Mật khẩu mới không được trùng với mật khẩu hiện tại.');
+            return;
+        }
+
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/users/changePassword`, {
+            const rawUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+            const apiUrl = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl}/api`;
+            const response = await fetch(`${apiUrl}/users/changePassword`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,17 +50,21 @@ const ChangePassword = () => {
                 }),
             });
             if (!response.ok) {
-                throw new Error('Failed to change password');
+                const data = await response.json().catch(() => ({}));
+                throw new Error(data.message || 'Failed to change password');
             }
             setSuccess(true);
+            toast.success('Đổi mật khẩu thành công! Đang chuyển hướng về đăng nhập...');
             removeToken();
             setTimeout(() => {
                 navigate('/login');
                 window.location.reload();
-            }, 4000);
+            }, 1800);
         } catch (error) {
             console.error('Error changing password:', error);
-            setError('Failed to change password. Please try again.');
+            const msg = 'Mật khẩu cũ không chính xác hoặc đã xảy ra lỗi. Vui lòng thử lại!';
+            setError(msg);
+            toast.error(msg);
         }
     };
 
