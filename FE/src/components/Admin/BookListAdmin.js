@@ -115,13 +115,17 @@ const BookListAdmin = () => {
                 <div className="flex items-center">
                 <img
                                 src={
-                                    book.imageurls.length > 0
+                                    book.imageurls && book.imageurls.length > 0
                                         ? book.imageurls.find((image) => image.defaultImg)?.imageUrl ||
                                           book.imageurls[0].imageUrl
-                                        : 'default-image-url.jpg'
+                                        : 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400'
                                 }
                                 alt={book.title}
-                                className="w-[130px] h-[130px] max-h-screen object-cover rounded-lg mr-4"
+                                className="w-[120px] h-[120px] shrink-0 object-cover rounded-lg mr-4 border border-gray-100"
+                                onError={(e) => {
+                                    e.target.src =
+                                        'https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400';
+                                }}
                             />
                   <div>
                     <h3 className="text-xl font-semibold">{book.title}</h3>

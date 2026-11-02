@@ -58,15 +58,22 @@ const BookDetail = ({ books }) => {
     const setDefaultImage = async (imageId) => {
         try {
             const token = getToken();
-            await axios.get(`${process.env.REACT_APP_API_URL}/api/upload/${book._id}/setDefault/${imageId}`, {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/upload/${book._id}/setDefault/${imageId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
             setDefaultImageId(imageId);
-            console.log('Default image set successfully');
+            if (response.data) {
+                setBook((prevBook) => ({
+                    ...prevBook,
+                    imageurls: response.data,
+                }));
+            }
+            toast.success('Đã đặt làm ảnh đại diện chính!');
         } catch (error) {
             console.error('Error setting default image:', error);
+            toast.error('Không thể đặt ảnh đại diện. Vui lòng thử lại!');
         }
     };
 
@@ -85,9 +92,13 @@ const BookDetail = ({ books }) => {
                 ...prevBook,
                 imageurls: updatedImages,
             }));
-            console.log('Image deleted successfully');
+            if (defaultImageId === imageId) {
+                setDefaultImageId(updatedImages[0]?._id || null);
+            }
+            toast.success('Đã xóa ảnh thành công!');
         } catch (error) {
             console.error('Error deleting image:', error);
+            toast.error('Không thể xóa ảnh. Vui lòng thử lại!');
         }
     };
 
@@ -181,35 +192,59 @@ const BookDetail = ({ books }) => {
             </div>
             <ImageUploader bookId={book._id} onUploadSuccess={handleUploadSuccess} />
             {book.imageurls && book.imageurls.length > 0 && (
-                <div className="mt-4">
-                    <h3 className="text-xl font-bold mb-2">Hình ảnh:</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {book.imageurls.map((image, index) => (
-                            <div key={image._id} className="relative group">
-                                <img
-                                    src={image.imageUrl}
-                                    alt={`Image ${index}`}
-                                    className="w-full max-h-screen object-cover rounded-md"
-                                />
-                                {defaultImageId === image._id && (
-                                    <div className="absolute inset-0 bg-black opacity-25 rounded-md"></div>
-                                )}
-                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button
-                                        onClick={() => setDefaultImage(image._id)}
-                                        className="bg-gray-800 text-white px-2 py-1 rounded-full text-xs mr-2 hover:bg-gray-700"
-                                    >
-                                        Thiết lập mặc định
-                                    </button>
-                                    <button
-                                        onClick={() => deleteImage(book._id, image._id)}
-                                        className="bg-red-600 text-white px-2 py-1 rounded-full text-xs hover:bg-red-700"
-                                    >
-                                        Xóa
-                                    </button>
+                <div className="mt-6">
+                    <h3 className="text-xl font-bold mb-3 text-gray-800">Hình ảnh sản phẩm ({book.imageurls.length}/4):</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {book.imageurls.map((image, index) => {
+                            const isDefault = defaultImageId === image._id || image.defaultImg;
+                            return (
+                                <div
+                                    key={image._id || index}
+                                    className={`relative group rounded-xl overflow-hidden border-2 transition-all ${
+                                        isDefault ? 'border-orange-500 shadow-md ring-2 ring-orange-400/20' : 'border-gray-200'
+                                    }`}
+                                >
+                                    <div className="w-full h-56 bg-gray-100 flex items-center justify-center overflow-hidden">
+                                        <img
+                                            src={image.imageUrl}
+                                            alt={`Ảnh ${index + 1} của ${book.title}`}
+                                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                            onError={(e) => {
+                                                e.target.src =
+                                                    "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=600";
+                                            }}
+                                        />
+                                    </div>
+
+                                    {/* Default Badge */}
+                                    {isDefault && (
+                                        <span className="absolute top-2 left-2 bg-orange-600 text-white text-xs font-bold px-2 py-0.5 rounded shadow">
+                                            Ảnh chính
+                                        </span>
+                                    )}
+
+                                    {/* Action Overlay */}
+                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity p-2">
+                                        {!isDefault && (
+                                            <button
+                                                type="button"
+                                                onClick={() => setDefaultImage(image._id)}
+                                                className="bg-orange-500 hover:bg-orange-600 text-white px-2.5 py-1.5 rounded-lg text-xs font-semibold shadow transition"
+                                            >
+                                                Đặt làm ảnh chính
+                                            </button>
+                                        )}
+                                        <button
+                                            type="button"
+                                            onClick={() => deleteImage(book._id, image._id)}
+                                            className="bg-red-600 hover:bg-red-700 text-white px-2.5 py-1.5 rounded-lg text-xs font-semibold shadow transition"
+                                        >
+                                            Xóa
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             )}
