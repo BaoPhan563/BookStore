@@ -4,52 +4,33 @@ const Books = require("../models/book");
 const authenticate = require("../loaders/authenticate");
 const cors = require("../loaders/cors");
 const multer = require("multer");
-const admin = require("firebase-admin");
-const serviceAccount = require("../configs/firebaseConfig");
+const cloudinary = require("../configs/cloudinaryConfig");
 const dotenv = require("dotenv");
 dotenv.config();
 
 const uploadRouter = express.Router();
 uploadRouter.use(bodyParser.json());
 
-// Initialize Firebase
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET, // Sử dụng biến môi trường để lấy tên bucket
-});
-
-const bucket = admin.storage().bucket();
-
-console.log("Bucket name:", bucket.name); // Kiểm tra tên bucket
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// Function to upload image to Firebase Storage and return public URL
-async function uploadImageToStorage(file) {
-  const safeName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}_${(file.originalname || "image.jpg").replace(/[^a-zA-Z0-9._-]/g, "_")}`;
-  const blob = bucket.file(safeName);
-  const blobWriter = blob.createWriteStream({
-    metadata: {
-      contentType: file.mimetype,
-    },
-  });
-
-  await new Promise((resolve, reject) => {
-    blobWriter.on("finish", async () => {
-      try {
-        await blob.makePublic();
-        resolve();
-      } catch (err) {
-        resolve(); // Continue if bucket uses uniform bucket-level access
+// Function to upload image to Cloudinary and return secure URL
+function uploadImageToStorage(file) {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: "bookstore",
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(result.secure_url);
       }
-    });
-    blobWriter.on("error", reject);
-    blobWriter.end(file.buffer);
+    );
+    uploadStream.end(file.buffer);
   });
-
-  // Return the public URL
-  const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
-  return publicUrl;
 }
 
 uploadRouter
