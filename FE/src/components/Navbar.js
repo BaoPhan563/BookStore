@@ -207,7 +207,7 @@ const Navbar = ({ onSearch }) => {
           <div className="flex items-center space-x-3">
             
             {/* Cart Icon (Customer Only) */}
-            {!isAdmin && (
+            {!isAdmin && isLoggedIn && (
               <Link
                 to="/cart"
                 className="relative p-2.5 text-slate-700 hover:text-orange-600 hover:bg-orange-50/60 rounded-full transition-all flex items-center justify-center group"
